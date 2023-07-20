@@ -19,6 +19,16 @@ const petsSchema = Schema({
     enum: Object.values(petSexEnum),
     required: [true, "Pet sex is required"],
   },
+  price: {
+    type: Number,
+  },
+  comments: {
+    type: String,
+  },
+  isForSale: {
+    type: Boolean,
+    default: false,
+  },
   owner: {
     type: Types.ObjectId,
     ref: "Users",
