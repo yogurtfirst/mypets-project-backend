@@ -27,6 +27,10 @@ const usersSchema = Schema({
     type: String,
   },
   avatarURL: String,
+  favorite: {
+    type: Array,
+    default: [],
+  },
   token: {
     type: String,
     default: null,
