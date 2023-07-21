@@ -1,7 +1,16 @@
 const { Schema, Types, model } = require("mongoose");
 const petSexEnum = require("../constants/petSexEnum");
+const addPetEnum = require("../constants/addPetEnum");
 
 const petsSchema = Schema({
+  addType: {
+    type: String,
+    enum: Object.values(addPetEnum),
+    required: [true, "Add type is required"],
+  },
+  titleOfAdd: {
+    type: String,
+  },
   name: {
     type: String,
     required: [true, "Pet name is required"],
@@ -17,7 +26,9 @@ const petsSchema = Schema({
   sex: {
     type: String,
     enum: Object.values(petSexEnum),
-    required: [true, "Pet sex is required"],
+  },
+  location: {
+    type: String,
   },
   price: {
     type: Number,
@@ -28,10 +39,6 @@ const petsSchema = Schema({
   photoURL: {
     type: String,
     required: [true, "Pet photo is required"],
-  },
-  isForSale: {
-    type: Boolean,
-    default: false,
   },
   owner: {
     type: Types.ObjectId,
