@@ -25,6 +25,10 @@ const petsSchema = Schema({
   comments: {
     type: String,
   },
+  photoURL: {
+    type: String,
+    required: [true, "Pet photo is required"],
+  },
   isForSale: {
     type: Boolean,
     default: false,
