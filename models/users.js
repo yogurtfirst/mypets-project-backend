@@ -1,6 +1,5 @@
 const { Schema, model } = require("mongoose");
 const bcrypt = require("bcrypt");
-const crypto = require("crypto");
 
 const usersSchema = Schema({
   name: {
@@ -15,18 +14,24 @@ const usersSchema = Schema({
   password: {
     type: String,
     required: [true, "Password is required"],
+    select: false,
   },
   birthday: {
     type: Date,
   },
   phone: {
     type: String,
-    required: [true, "Phone number is required"],
   },
   city: {
     type: String,
   },
-  avatarURL: String,
+  avatarURL: {
+    type: String,
+  },
+  avatarId: {
+    type: String,
+    select: false,
+  },
   favorite: {
     type: Array,
     default: [],
@@ -35,19 +40,9 @@ const usersSchema = Schema({
     type: String,
     default: null,
   },
-  isNewUser: {
-    type: Boolean,
-    default: true,
-  },
 });
 
 usersSchema.pre("save", async function (next) {
-  if (this.isNew) {
-    const emailHash = crypto.createHash("md5").update(this.email).digest("hex");
-
-    this.avatarURL = `https://gravatar.com/avatar/${emailHash}.jpg?d=retro`;
-  }
-
   if (!this.isModified("password")) return next();
 
   const salt = await bcrypt.genSalt(10);
