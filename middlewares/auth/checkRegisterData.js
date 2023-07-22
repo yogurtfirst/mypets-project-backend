@@ -1,6 +1,5 @@
-const { catchAsync, AppError } = require('../../utils')
+const { catchAsync, AppError, registerUserDataValidator } = require('../../utils')
 const { Users } = require('../../models')
-const { registerUserDataValidator } = require('../../utils')
 
 exports.checkRegisterData = catchAsync(async (req, res, next) => {
     const { error, value } = registerUserDataValidator(req.body)
