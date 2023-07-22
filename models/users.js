@@ -4,7 +4,6 @@ const bcrypt = require("bcrypt");
 const usersSchema = Schema({
   name: {
     type: String,
-    required: [true, "Name is required"],
   },
   email: {
     type: String,
@@ -40,7 +39,12 @@ const usersSchema = Schema({
     type: String,
     default: null,
   },
-});
+},
+{
+  timestamps: true,
+  versionKey: false,
+}
+);
 
 usersSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
