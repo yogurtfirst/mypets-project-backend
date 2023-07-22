@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const usersSchema = Schema({
   name: {
     type: String,
+    required: [true, "Name is required"],
   },
   email: {
     type: String,
@@ -16,7 +17,7 @@ const usersSchema = Schema({
     select: false,
   },
   birthday: {
-    type: Date,
+    type: String,
   },
   phone: {
     type: String,
