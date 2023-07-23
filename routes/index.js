@@ -1,4 +1,5 @@
 const authRouter = require("./authRoutes");
+const friendsRouter = require("./friendsRoutes");
 const noticesRouter = require("./noticesRoutes");
 const petsRouter = require("./petsRoutes");
 const swaggerRouter = require("./swagerRoutes");
@@ -10,4 +11,5 @@ module.exports = {
     petsRouter,
     usersRouter,
     swaggerRouter,
+    friendsRouter,
 }
