@@ -48,6 +48,7 @@ const noticesSchema = Schema({
   photoId: {
     type: String,
   },
+  favorite: [{ type: Types.ObjectId, ref: "Users" }],
   owner: {
     type: Types.ObjectId,
     ref: "Users",
