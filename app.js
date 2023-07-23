@@ -6,7 +6,7 @@ const dotenv = require('dotenv')
 
 dotenv.config({ path: './.env' })
 
-const { authRouter, noticesRouter, petsRouter, swaggerRouter, usersRouter } = require('./routes')
+const { authRouter, noticesRouter, petsRouter, swaggerRouter, usersRouter, friendsRouter } = require('./routes')
 
 const app = express()
 
@@ -32,6 +32,7 @@ app.use('/api/auth', authRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/pets', petsRouter)
 app.use('/api/notices', noticesRouter)
+app.use('/api/friends', friendsRouter)
 
 app.use((req, res) => {
   res.status(404).json({ message: 'Not found' })
