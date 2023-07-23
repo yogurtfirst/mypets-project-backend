@@ -30,7 +30,6 @@ const usersSchema = Schema({
   },
   avatarId: {
     type: String,
-    select: false,
   },
   favorite: {
     type: Array,
