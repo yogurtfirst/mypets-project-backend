@@ -13,14 +13,14 @@ exports.deletePet = catchAsync(async (req, res) => {
 
   const {photoId, _id} = await MyPets.findOne({ _id: petId, owner: userId })
   
-  await deleteOnCloudinary(photoId)
-
-  await MyPets.deleteOne({ _id: petId, owner: userId })
-
   if (!_id)
     return res.status(404).json({
       message: "There is no pet with this id",
     });
+
+  await deleteOnCloudinary(photoId)
+
+  await MyPets.deleteOne({ _id: petId, owner: userId })
 
   res.sendStatus(204);
 });
