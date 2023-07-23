@@ -29,7 +29,12 @@ const myPetsSchema = Schema({
     ref: "Users",
     required: [true, "Pet must have an owner"],
   },
-});
+},
+{
+  timestamps: true,
+  versionKey: false,
+}
+);
 
 const MyPets = model("MyPets", myPetsSchema);
 
