@@ -31,7 +31,6 @@ const usersSchema = Schema(
     },
     avatarId: {
       type: String,
-      select: false,
     },
     token: {
       type: String,
