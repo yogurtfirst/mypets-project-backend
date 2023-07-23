@@ -1,6 +1,7 @@
 const { Types } = require("mongoose");
 const { catchAsync, AppError } = require("../../utils");
 const { MyPets } = require("../../models");
+const {deleteOnCloudinary} = require('../../services/cloudinary')
 
 exports.deletePet = catchAsync(async (req, res) => {
   const { petId } = req.params;
@@ -10,9 +11,13 @@ exports.deletePet = catchAsync(async (req, res) => {
 
   if (!isIdValid) throw new AppError(400, "Bad request..");
 
-  const pet = await MyPets.findOneAndDelete({ _id: petId, owner: userId });
+  const {photoId, _id} = await MyPets.findOne({ _id: petId, owner: userId })
+  
+  await deleteOnCloudinary(photoId)
 
-  if (!pet)
+  await MyPets.deleteOne({ _id: petId, owner: userId })
+
+  if (!_id)
     return res.status(404).json({
       message: "There is no pet with this id",
     });
