@@ -1,0 +1,1487 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "version": "1.0",
+    "title": "Swagger documentation for the Your Pet project",
+    "description": "Some description..."
+  },
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "servers": [
+    { "url": "http://localhost:3000" },
+    { "url": "https://mypets-backend.onrender.com/" }
+  ],
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Authorization endpoints"
+    },
+    {
+      "name": "Users",
+      "description": "Users endpoints"
+    },
+    {
+      "name": "Pets",
+      "description": "Pets endpoints"
+    },
+    {
+      "name": "Notices",
+      "description": "Notices endpoints"
+    }
+  ],
+
+  "paths": {
+    "/api/auth/register": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User registration",
+
+        "requestBody": {
+          "description": "Registration's object",
+          "required": true,
+
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegistrationRequest"
+              }
+            }
+          }
+        },
+
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Provided email already exists",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmailExistError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User login",
+
+        "requestBody": {
+          "description": "Login's object",
+          "required": true,
+
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid user data when trying to log in",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/logout": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "User logout",
+        "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string",
+            "required": true,
+            "description": "Bearer token in the format \"Bearer <token>\""
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Logout successful",
+            "content": {}
+          },
+          "400": {
+            "description": "No token provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized (Invalid access token)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unauthorized (Invalid access token)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/api/users": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Get the data object of the current user",
+        "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string",
+            "required": true,
+            "description": "Bearer token in the format \"Bearer <token>\""
+          }
+        ],
+
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CurrentUserResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Headers of user requests are missing a token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Users"],
+        "summary": "Update user's data by id",
+        "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string",
+            "required": true,
+            "description": "Bearer token in the format \"Bearer <token>\""
+          }
+        ],
+        "requestBody": {
+          "description": "User's data object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserRequest"
+              }
+            }
+          }
+        },
+
+        "responses": {
+          "200": {
+            "description": "Sucessful update operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateUserResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Headers of user requests are missing a token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/api/pets": {
+      "post": {
+        "tags": ["Pets"],
+        "summary": "Add a user's pet",
+        "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string",
+            "required": true,
+            "description": "Bearer token in the format \"Bearer <token>\""
+          }
+        ],
+        "requestBody": {
+          "description": "User pet data object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddPetRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation of adding a pet",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddPetResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Headers of user requests are missing a token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["Pets"],
+        "summary": "Get a list of user's pets",
+        "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string",
+            "required": true,
+            "description": "Bearer token in the format \"Bearer <token>\""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation of adding a pet",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetPetListResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Headers of user requests are missing a token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/api/pets/:petid": {
+      "delete": {
+        "tags": ["Pets"],
+        "summary": "Delete a user's pet",
+        "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string",
+            "required": true,
+            "description": "Bearer token in the format \"Bearer <token>\""
+          },
+          {
+            "in": "path",
+            "name": "petid",
+            "required": true,
+            "type": "string",
+            "description": "Pet Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation of remove a pet",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RemovePetResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Headers of user requests are missing a token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unauthorized (Invalid access token)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/api/notices": {
+      "get": {
+        "tags": ["Notices"],
+        "summary": "Get all notices",
+        "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string",
+            "required": true,
+            "description": "Bearer token in the format \"Bearer <token>\""
+          }
+        ],
+
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetNoticesListResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Headers of user requests are missing a token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Notices"],
+        "summary": "Create a notice",
+        "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string",
+            "required": true,
+            "description": "Bearer token in the format \"Bearer <token>\""
+          }
+        ],
+        "requestBody": {
+          "description": "Notice's pet data object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddNoticeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation of adding a notice",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddNoticeResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Headers of user requests are missing a token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/notices/:noticeid": {
+      "get": {
+        "tags": ["Notices"],
+        "summary": "Get a notice by id",
+        "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string",
+            "required": true,
+            "description": "Bearer token in the format \"Bearer <token>\""
+          },
+          {
+            "in": "path",
+            "name": "noticeid",
+            "type": "string",
+            "required": true,
+            "description": "A notice's id"
+          }
+        ],
+
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetNoticesListResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Headers of user requests are missing a token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unauthorized (Invalid access token)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Notices"],
+        "summary": "Delete a notice by id",
+        "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string",
+            "required": true,
+            "description": "Bearer token in the format \"Bearer <token>\""
+          },
+          {
+            "in": "path",
+            "name": "noticeid",
+            "required": true,
+            "type": "string",
+            "description": "A notice's id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation of remove a notice",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RemoveNoticeByIdResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Headers of user requests are missing a token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unauthorized (Invalid access token)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/api/notices/self": {
+      "get": {
+        "tags": ["Notices"],
+        "summary": "Get all current user notices",
+        "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string",
+            "required": true,
+            "description": "Bearer token in the format \"Bearer <token>\""
+          }
+        ],
+
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetNoticesListResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Headers of user requests are missing a token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/notices/favorites": {
+      "patch": {
+        "tags": ["Notices"],
+        "summary": "Update favourites in a notice",
+        "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string",
+            "required": true,
+            "description": "Bearer token in the format \"Bearer <token>\""
+          }
+        ],
+        "requestBody": {
+          "description": "Notice's id",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateFavoritesInNoticeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation of add/remove a notice in favorite list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddNoticeResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Headers of user requests are missing a token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+
+  "components": {
+    "schemas": {
+      "RegistrationRequest": {
+        "type": "object",
+        "required": ["name", "email", "password"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "User's name",
+            "example": "UserName"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "Qwerty123"
+          }
+        }
+      },
+      "RegistrationResponse": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "type": "object",
+            "properties": {
+              "email": {
+                "type": "string",
+                "description": "User's email",
+                "format": "email",
+                "example": "user@example.com"
+              },
+              "_id": {
+                "type": "string",
+                "description": "User's Id",
+                "example": "64bc6fad76dd5e12883fb322"
+              },
+              "name": {
+                "type": "string",
+                "description": "Username",
+                "example": "Jhon"
+              }
+            }
+          },
+          "token": {
+            "type": "string",
+            "description": "User's access token",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0YTQ0NjhlMDNjc3E3OTZhZDk3N2Q1YiJ9.Yh8Xgp-e6DL8-23gfFEUaJK6G19qahZPlsrYkLrDccs"
+          },
+          "isNewUser": {
+            "type": "boolen",
+            "description": "Always 'true' after registration",
+            "example": "true"
+          }
+        }
+      },
+      "EmailExistError": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Response message for error code 409",
+            "example": "Email already in use"
+          }
+        }
+      },
+
+      "LoginRequest": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "User's password",
+            "example": "Qwerty123"
+          }
+        }
+      },
+      "LoginResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "User's access token",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0YTQ0NjhlMDNjc3E3OTZhZDk3N2Q1YiJ9.Yh8Xgp-e6DL8-23gfFEUaJK6G19qahZPlsrYkLrDccs"
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "email": {
+                "type": "string",
+                "description": "User's email",
+                "format": "email",
+                "example": "user@example.com"
+              },
+              "_id": {
+                "type": "string",
+                "description": "User's Id",
+                "example": "64bc6fad76dd5e12883fb322"
+              },
+              "name": {
+                "type": "string",
+                "description": "Username",
+                "example": "Jhon"
+              }
+            }
+          }
+        }
+      },
+      "LoginError": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Invalid user data when trying to log in",
+            "example": "Email or password is wrong"
+          }
+        }
+      },
+
+      "LogoutRequest": {
+        "type": "object",
+        "required": ["_id"],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "User's id",
+            "example": "121%*jSF214+S$fa%!21"
+          }
+        }
+      },
+      "LogoutResponse": {
+        "type": "object",
+        "description": "Logout response without any content"
+      },
+
+      "CurrentUserResponse": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "type": "object",
+            "properties": {
+              "email": {
+                "type": "string",
+                "description": "User's email",
+                "format": "email",
+                "example": "user@example.com"
+              },
+              "phone": {
+                "type": "string",
+                "description": "User's phone",
+                "example": "+1234567890"
+              },
+              "city": {
+                "type": "string",
+                "description": "The city where the user lives",
+                "example": "Lviv"
+              },
+              "avatarURL": {
+                "type": "string",
+                "description": "The URL to the user's avatar",
+                "example": "https://res.cloudinary.com/doe8sk18b/image/upload/v1690028176/eauamgos5bwx49rxsp5e.jpg"
+              },
+              "_id": {
+                "type": "string",
+                "description": "User's Id",
+                "example": "64bc6fad76dd5e12883fb322"
+              },
+              "name": {
+                "type": "string",
+                "description": "Username",
+                "example": "Jhon"
+              }
+            }
+          }
+        }
+      },
+
+      "UpdateUserRequest": {
+        "type": "object",
+        "required": ["name", "email", "birthday", "phone", "city", "avatar"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Username",
+            "example": "Jhon"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email",
+            "example": "user@example.com"
+          },
+          "birthday": {
+            "type": "string",
+            "format": "date",
+            "description": "User's birthday in format DD.MM.YYYY",
+            "example": "01.01.1990"
+          },
+          "phone": {
+            "type": "string",
+            "description": "User's phone number",
+            "example": "+1234567890"
+          },
+          "city": {
+            "type": "string",
+            "description": "User's city",
+            "example": "Lviv"
+          },
+          "avatar": {
+            "type": "string",
+            "description": "URL to user's avatar image",
+            "example": "https://example.com/avatar.jpg"
+          }
+        }
+      },
+      "UpdateUserResponse": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Username",
+            "example": "Jhon"
+          },
+          "email": {
+            "type": "string",
+            "description": "User's email",
+            "format": "email",
+            "example": "user@example.com"
+          },
+          "_id": {
+            "type": "string",
+            "description": "User's Id",
+            "example": "64bc6fad76dd5e12883fb322"
+          },
+          "birthday": {
+            "type": "string",
+            "format": "date",
+            "description": "User's birthday in format DD.MM.YYYY",
+            "example": "01.01.1990"
+          },
+          "phone": {
+            "type": "string",
+            "description": "User's phone number",
+            "example": "+1234567890"
+          },
+          "city": {
+            "type": "string",
+            "description": "User's city",
+            "example": "Lviv"
+          },
+          "avatar": {
+            "type": "string",
+            "description": "URL to user's avatar image",
+            "example": "https://example.com/avatar.jpg"
+          }
+        }
+      },
+
+      "AddPetRequest": {
+        "type": "object",
+        "required": ["name", "birthday", "type", "comments", "photoURL"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Pet's name",
+            "example": "Barsik"
+          },
+          "birthday": {
+            "type": "string",
+            "description": "Pet's birthday in format DD.MM.YYYY",
+            "example": "15.05.2017"
+          },
+          "type": {
+            "type": "string",
+            "description": "Pet's type (e.g., Persian cat, Basenji, Pomeranian, Pug)",
+            "example": "French bulldog"
+          },
+          "comments": {
+            "type": "string",
+            "description": "Additional comments about the pet",
+            "example": "A playful and friendly dog."
+          },
+          "photoURL": {
+            "type": "string",
+            "description": "URL to the pet's photo",
+            "example": "https://example.com/pet-photo.jpg"
+          }
+        }
+      },
+      "AddPetResponse": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Pet's id",
+            "example": "7c7904d4-28a5-11ee-be56-0242ac120002"
+          }
+        }
+      },
+
+      "GetPetListResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Pet's name",
+              "example": "Barsik"
+            },
+            "birthday": {
+              "type": "string",
+              "description": "Pet's birthday in format DD.MM.YYYY",
+              "example": "15.05.2017"
+            },
+            "type": {
+              "type": "string",
+              "description": "Pet's type (e.g., Persian cat, Basenji, Pomeranian, Pug)",
+              "example": "French bulldog"
+            },
+            "comments": {
+              "type": "string",
+              "description": "Additional comments about the pet",
+              "example": "A playful and friendly dog."
+            },
+            "photoURL": {
+              "type": "string",
+              "description": "URL to the pet's photo",
+              "example": "https://example.com/pet-photo.jpg"
+            },
+            "_id": {
+              "type": "string",
+              "description": "Pet Id",
+              "example": "64bc46df71b9b523c278cccb"
+            },
+            "owner": {
+              "type": "string",
+              "format": "ObjectId",
+              "description": "ID of the pet's owner (User)",
+              "example": "603f6508e4a75c00223a446a"
+            },
+            "createdAt": {
+              "type": "string",
+              "description": "Created date and time",
+              "example": "2023-07-22T21:15:11.155Z"
+            }
+          }
+        }
+      },
+
+      "RemovePetResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Pet has been removed."
+          }
+        }
+      },
+
+      "GetNoticesListResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "_id": {
+              "type": "string",
+              "description": "Notice's ID",
+              "example": "02aa6jyt15cs5e00020qw24d"
+            },
+            "noticeType": {
+              "type": "string",
+              "description": "Notice's type",
+              "example": "in good hands"
+            },
+            "title": {
+              "type": "string",
+              "description": "Notice's title",
+              "example": "Cute dog looking for a home"
+            },
+            "name": {
+              "type": "string",
+              "description": "Pet's name",
+              "example": "Rich"
+            },
+            "birthday": {
+              "type": "string",
+              "description": "Pet's birthday in format DD.MM.YYYY",
+              "example": "21.09.2020"
+            },
+            "petType": {
+              "type": "string",
+              "description": "Pet's type",
+              "example": "Pomeranian"
+            },
+            "sex": {
+              "type": "string",
+              "description": "Pet's sex",
+              "example": "male"
+            },
+            "location": {
+              "type": "string",
+              "description": "Notice's location",
+              "example": "Lviv"
+            },
+            "price": {
+              "type": "integer",
+              "description": "Notice's price (Available only if type of notice equal sell)",
+              "example": null
+            },
+            "comments": {
+              "type": "string",
+              "description": "Notice's comment",
+              "example": "Rich would be the perfect addition to an active family that loves to play and go on walks. I bet he would love having a doggy playmate too!"
+            },
+            "photoURL": {
+              "type": "string",
+              "description": "Pet's photo in notice",
+              "example": "https://res.cloudinary.com/doe8sk18b/image/upload/v1690028176/wwesmackd0wnq24wwap0e.jpg"
+            },
+            "favorite": {
+              "type": "array",
+              "description": "List of users who have favorited this notification",
+              "items": {
+                "type": "string"
+              },
+              "example": [
+                "64bc6fad76da5e12883fb322",
+                "44bf6fnw76dd5c12811fb175",
+                "61bf2ced00cd5c12121fb030"
+              ]
+            },
+            "owner": {
+              "type": "string",
+              "format": "ObjectId",
+              "description": "ID of the pet's owner (User)",
+              "example": "603f6508e4a75c00223a446a"
+            },
+            "createdAt": {
+              "type": "string",
+              "example": "2023-07-23T19:21:53.954Z"
+            }
+          }
+        }
+      },
+
+      "AddNoticeRequest": {
+        "type": "object",
+        "required": [
+          "noticeType",
+          "title",
+          "name",
+          "birthday",
+          "petType",
+          "sex",
+          "location",
+          "price",
+          "comments",
+          "photoURL"
+        ],
+        "properties": {
+          "noticeType": {
+            "type": "string",
+            "description": "Notice's type",
+            "example": "sell"
+          },
+          "title": {
+            "type": "string",
+            "description": "Notice's title",
+            "example": "Cute dog looking for a home"
+          },
+          "name": {
+            "type": "string",
+            "description": "Pet's name",
+            "example": "Rich"
+          },
+          "birthday": {
+            "type": "string",
+            "description": "Pet's birthday in format DD.MM.YYYY",
+            "example": "21.09.2020"
+          },
+          "petType": {
+            "type": "string",
+            "description": "Pet's type",
+            "example": "Pomeranian"
+          },
+          "sex": {
+            "type": "string",
+            "description": "Pet's sex",
+            "example": "male"
+          },
+          "location": {
+            "type": "string",
+            "description": "Notice's location",
+            "example": "Lviv"
+          },
+          "price": {
+            "type": "integer",
+            "description": "Notice's price (Available only if type of notice equal sell)",
+            "example": 12500
+          },
+          "comments": {
+            "type": "string",
+            "description": "Notice's comment",
+            "example": "Rich would be the perfect addition to an active family that loves to play and go on walks. I bet he would love having a doggy playmate too!"
+          },
+          "photoURL": {
+            "type": "string",
+            "description": "Pet's photo in notice",
+            "example": "https://res.cloudinary.com/doe8sk18b/image/upload/v1690028176/wwesmackd0wnq24wwap0e.jpg"
+          }
+        }
+      },
+      "AddNoticeResponse": {
+        "type": "object",
+        "properties": {
+          "noticeType": {
+            "type": "string",
+            "description": "Notice's type",
+            "example": "sell"
+          },
+          "title": {
+            "type": "string",
+            "description": "Notice's title",
+            "example": "Cute dog looking for a home"
+          },
+          "_id": {
+            "type": "string",
+            "description": "Pet's id",
+            "example": "7c7904d4-28a5-11ee-be56-0242ac120002"
+          },
+          "name": {
+            "type": "string",
+            "description": "Pet's name",
+            "example": "Rich"
+          },
+          "birthday": {
+            "type": "string",
+            "description": "Pet's birthday in format DD.MM.YYYY",
+            "example": "21.09.2020"
+          },
+          "petType": {
+            "type": "string",
+            "description": "Pet's type",
+            "example": "Pomeranian"
+          },
+          "sex": {
+            "type": "string",
+            "description": "Pet's sex",
+            "example": "male"
+          },
+          "location": {
+            "type": "string",
+            "description": "Notice's location",
+            "example": "Lviv"
+          },
+          "price": {
+            "type": "integer",
+            "description": "Notice's price (Available only if type of notice equal sell)",
+            "example": 12500
+          },
+          "comments": {
+            "type": "string",
+            "description": "Notice's comment",
+            "example": "Rich would be the perfect addition to an active family that loves to play and go on walks. I bet he would love having a doggy playmate too!"
+          },
+          "photoURL": {
+            "type": "string",
+            "description": "Pet's photo in notice",
+            "example": "https://res.cloudinary.com/doe8sk18b/image/upload/v1690028176/wwesmackd0wnq24wwap0e.jpg"
+          },
+          "favorite": {
+            "type": "array",
+            "description": "List of users who have favorited this notification",
+            "items": {
+              "type": "string"
+            },
+            "example": []
+          },
+          "owner": {
+            "type": "string",
+            "format": "ObjectId",
+            "description": "ID of the pet's owner (User)",
+            "example": "603f6508e4a75c00223a446a"
+          },
+          "createdAt": {
+            "type": "string",
+            "example": "2023-07-23T19:21:53.954Z"
+          }
+        }
+      },
+
+      "GetNoticeByIdResponse": {
+        "type": "object",
+        "properties": {
+          "noticeType": {
+            "type": "string",
+            "description": "Notice's type",
+            "example": "sell"
+          },
+          "title": {
+            "type": "string",
+            "description": "Notice's title",
+            "example": "Cute dog looking for a home"
+          },
+          "_id": {
+            "type": "string",
+            "description": "Pet's id",
+            "example": "7c7904d4-28a5-11ee-be56-0242ac120002"
+          },
+          "name": {
+            "type": "string",
+            "description": "Pet's name",
+            "example": "Rich"
+          },
+          "birthday": {
+            "type": "string",
+            "description": "Pet's birthday in format DD.MM.YYYY",
+            "example": "21.09.2020"
+          },
+          "petType": {
+            "type": "string",
+            "description": "Pet's type",
+            "example": "Pomeranian"
+          },
+          "sex": {
+            "type": "string",
+            "description": "Pet's sex",
+            "example": "male"
+          },
+          "location": {
+            "type": "string",
+            "description": "Notice's location",
+            "example": "Lviv"
+          },
+          "price": {
+            "type": "integer",
+            "description": "Notice's price (Available only if type of notice equal sell)",
+            "example": 12500
+          },
+          "comments": {
+            "type": "string",
+            "description": "Notice's comment",
+            "example": "Rich would be the perfect addition to an active family that loves to play and go on walks. I bet he would love having a doggy playmate too!"
+          },
+          "photoURL": {
+            "type": "string",
+            "description": "Pet's photo in notice",
+            "example": "https://res.cloudinary.com/doe8sk18b/image/upload/v1690028176/wwesmackd0wnq24wwap0e.jpg"
+          },
+          "favorite": {
+            "type": "array",
+            "description": "List of users who have favorited this notification",
+            "items": {
+              "type": "string"
+            },
+            "example": []
+          },
+          "owner": {
+            "type": "string",
+            "format": "ObjectId",
+            "description": "ID of the pet's owner (User)",
+            "example": "603f6508e4a75c00223a446a"
+          },
+          "createdAt": {
+            "type": "string",
+            "example": "2023-07-23T19:21:53.954Z"
+          }
+        }
+      },
+      "RemoveNoticeByIdResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Notice has been removed."
+          }
+        }
+      },
+
+      "UpdateFavoritesInNoticeRequest": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Notice's id",
+            "example": "7c7904d4-28a5-11ee-be56-0242ac120002"
+          }
+        }
+      },
+
+      "BadRequestError": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Response message for error code 400",
+            "example": "Bad request"
+          }
+        }
+      },
+      "UnauthorizedError": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Response message for error code 401",
+            "example": "Unauthorized"
+          }
+        }
+      },
+      "NotFoundError": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Response message for error code 404",
+            "example": "Not found"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "https",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
