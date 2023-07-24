@@ -140,15 +140,6 @@
         "tags": ["Auth"],
         "summary": "User logout",
         "security": [{ "Bearer": [] }],
-
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/LogoutRequest"
-              }
-            }
-          }
-        },
         "parameters": [
           {
             "in": "header",
