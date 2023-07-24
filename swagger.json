@@ -225,6 +225,7 @@
       },
       "patch": {
         "tags": ["Users"],
+        "consumes": ["multipart/form-data"],
         "summary": "Update user's data by id",
         "security": [{ "Bearer": [] }],
         "parameters": [
@@ -936,7 +937,8 @@
           "avatar": {
             "type": "string",
             "description": "URL to user's avatar image",
-            "example": "https://example.com/avatar.jpg"
+            "required": true,
+            "format": "binary"
           }
         }
       },
@@ -975,10 +977,10 @@
             "description": "User's city",
             "example": "Lviv"
           },
-          "avatar": {
+          "avatarURL": {
             "type": "string",
             "description": "URL to user's avatar image",
-            "example": "https://example.com/avatar.jpg"
+            "example": "https://res.cloudinary.com/doe8sk18b/image/upload/v1690028176/wwesmackd0wnq24wwap0e.jpg"
           }
         }
       },
@@ -1009,8 +1011,9 @@
           },
           "photoURL": {
             "type": "string",
-            "description": "URL to the pet's photo",
-            "example": "https://example.com/pet-photo.jpg"
+            "description": "URL to user's avatar image",
+            "required": true,
+            "format": "binary"
           }
         }
       },
@@ -1053,7 +1056,7 @@
             "photoURL": {
               "type": "string",
               "description": "URL to the pet's photo",
-              "example": "https://example.com/pet-photo.jpg"
+              "example": "https://res.cloudinary.com/doe8sk18b/image/upload/v1690028176/wwesmackd0wnq24wwap0e.jpg"
             },
             "_id": {
               "type": "string",
@@ -1233,8 +1236,9 @@
           },
           "photoURL": {
             "type": "string",
-            "description": "Pet's photo in notice",
-            "example": "https://res.cloudinary.com/doe8sk18b/image/upload/v1690028176/wwesmackd0wnq24wwap0e.jpg"
+            "description": "URL to user's avatar image",
+            "required": true,
+            "format": "binary"
           }
         }
       },
