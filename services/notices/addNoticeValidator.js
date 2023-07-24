@@ -19,5 +19,6 @@ exports.addNoticeValidator = (data) =>
       price: Joi.number(),
       comments: Joi.string().min(3).required(),
       photoURL: Joi.string().uri().required(),
+      photoId: Joi.string()
     })
     .validate(data);
