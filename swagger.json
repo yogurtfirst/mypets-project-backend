@@ -382,7 +382,7 @@
       }
     },
 
-    "/api/pets/:petid": {
+    "/api/pets/:petId": {
       "delete": {
         "tags": ["Pets"],
         "summary": "Delete a user's pet",
@@ -397,7 +397,7 @@
           },
           {
             "in": "path",
-            "name": "petid",
+            "name": "petId",
             "required": true,
             "type": "string",
             "description": "Pet Id"
