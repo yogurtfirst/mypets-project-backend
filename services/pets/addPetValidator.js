@@ -8,5 +8,6 @@ exports.addPetValidator = (data) =>
       type: Joi.string().min(3).required(),
       comments: Joi.string().min(3).required(),
       photoURL: Joi.string().uri().required(),
+      photoId: Joi.string(),
     })
     .validate(data);

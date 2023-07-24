@@ -13,9 +13,9 @@ noticesRouter.post(
   noticesCtrl.addNotice
 );
 noticesRouter.get("/self", protect, noticesCtrl.listMyNotices);
-noticesRouter.patch("/favorites", noticesCtrl.toggleNoticeToFavorite);
 
 noticesRouter.get("/:noticeId", noticesCtrl.getNoticeById);
+noticesRouter.patch("/:noticeId", protect, noticesCtrl.toggleNoticeToFavorite);
 noticesRouter.delete("/:noticeId", protect, noticesCtrl.deleteNotice);
 
 module.exports = noticesRouter;
