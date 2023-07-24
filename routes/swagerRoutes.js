@@ -1,8 +1,15 @@
-const express = require('express')
-const { swaggerService } = require('../services/swagger/swaggerService')
+const express = require('express');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('../swagger.json');
 
-const swaggerRouter = express.Router()
+const swaggerRouter = express.Router();
 
-swaggerRouter.get('/', swaggerService) 
+const options = {
+  explorer: true,
+  customJsStr: 'console.log("Hello World")',
+};
 
-module.exports = swaggerRouter
+swaggerRouter.use('/', swaggerUi.serve);
+swaggerRouter.get('/', swaggerUi.setup(swaggerDocument, options));
+
+module.exports = swaggerRouter;
