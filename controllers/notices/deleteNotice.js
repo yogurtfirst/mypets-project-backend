@@ -1,5 +1,6 @@
 const { Notices } = require("../../models");
 const { catchAsync, AppError } = require("../../utils");
+const { deleteOnCloudinary } = require('../../services/cloudinary');
 
 exports.deleteNotice = catchAsync(async (req, res) => {
   const { noticeId } = req.params;
@@ -11,6 +12,8 @@ exports.deleteNotice = catchAsync(async (req, res) => {
   });
 
   if (!result) throw new AppError(404, "Notice not found");
+
+  await deleteOnCloudinary(result.photoId)
 
   res.status(204).json({
     notice: result,
