@@ -5,12 +5,9 @@
     "title": "Swagger documentation for the Your Pet project",
     "description": "Some description..."
   },
-  "consumes": ["application/json"],
+  "consumes": ["application/json", "multipart/form-data"],
   "produces": ["application/json"],
-  "servers": [
-    { "url": "http://localhost:3000" },
-    { "url": "https://mypets-backend.onrender.com/" }
-  ],
+  "servers": [{ "url": "http://localhost:3000" }],
   "tags": [
     {
       "name": "Auth",
@@ -1441,7 +1438,7 @@
     },
     "securitySchemes": {
       "Bearer": {
-        "type": "https",
+        "type": "http",
         "scheme": "bearer",
         "bearerFormat": "JWT"
       }
