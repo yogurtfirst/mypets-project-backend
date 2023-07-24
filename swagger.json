@@ -442,17 +442,6 @@
       "get": {
         "tags": ["Notices"],
         "summary": "Get all notices",
-        "security": [{ "Bearer": [] }],
-        "parameters": [
-          {
-            "in": "header",
-            "name": "Authorization",
-            "type": "string",
-            "required": true,
-            "description": "Bearer token in the format \"Bearer <token>\""
-          }
-        ],
-
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -534,22 +523,14 @@
         }
       }
     },
-    "/api/notices/:noticeid": {
+    "/api/notices/:noticeId": {
       "get": {
         "tags": ["Notices"],
         "summary": "Get a notice by id",
-        "security": [{ "Bearer": [] }],
         "parameters": [
           {
-            "in": "header",
-            "name": "Authorization",
-            "type": "string",
-            "required": true,
-            "description": "Bearer token in the format \"Bearer <token>\""
-          },
-          {
             "in": "path",
-            "name": "noticeid",
+            "name": "noticeId",
             "type": "string",
             "required": true,
             "description": "A notice's id"
@@ -603,7 +584,7 @@
           },
           {
             "in": "path",
-            "name": "noticeid",
+            "name": "noticeId",
             "required": true,
             "type": "string",
             "description": "A notice's id"
@@ -641,6 +622,59 @@
             }
           }
         }
+      },
+      "patch": {
+        "tags": ["Notices"],
+        "summary": "Update favourites in a notice",
+        "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string",
+            "required": true,
+            "description": "Bearer token in the format \"Bearer <token>\""
+          },
+          {
+            "in": "path",
+            "name": "noticeId",
+            "required": true,
+            "type": "string",
+            "description": "A notice's id"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation of add/remove a notice in favorite list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddNoticeResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Headers of user requests are missing a token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          }
+        }
       }
     },
 
@@ -666,65 +700,6 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/GetNoticesListResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Headers of user requests are missing a token",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/notices/favorites": {
-      "patch": {
-        "tags": ["Notices"],
-        "summary": "Update favourites in a notice",
-        "security": [{ "Bearer": [] }],
-        "parameters": [
-          {
-            "in": "header",
-            "name": "Authorization",
-            "type": "string",
-            "required": true,
-            "description": "Bearer token in the format \"Bearer <token>\""
-          }
-        ],
-        "requestBody": {
-          "description": "Notice's id",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateFavoritesInNoticeRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Successful operation of add/remove a notice in favorite list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AddNoticeResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request (invalid request body)",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BadRequestError"
                 }
               }
             }
@@ -1429,18 +1404,6 @@
           "message": {
             "type": "string",
             "example": "Notice has been removed."
-          }
-        }
-      },
-
-      "UpdateFavoritesInNoticeRequest": {
-        "type": "object",
-        "required": ["id"],
-        "properties": {
-          "id": {
-            "type": "string",
-            "description": "Notice's id",
-            "example": "7c7904d4-28a5-11ee-be56-0242ac120002"
           }
         }
       },
