@@ -8,7 +8,7 @@ const petsRouter = express.Router();
 
 petsRouter.use(protect);
 
-petsRouter.post("/", petsMdwr.checkAddPet, uploadTmp.single('photo'), petsMdwr.updateImage, petsCtrl.addPet);
+petsRouter.post("/", uploadTmp.single('photo'), petsMdwr.updateImage, petsMdwr.checkAddPet, petsCtrl.addPet);
 petsRouter.get("/", petsCtrl.listMyPets);
 petsRouter.delete("/:petId", petsCtrl.deletePet);
 
