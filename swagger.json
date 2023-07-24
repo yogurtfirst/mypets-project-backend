@@ -137,15 +137,7 @@
         "tags": ["Auth"],
         "summary": "User logout",
         "security": [{ "Bearer": [] }],
-        "parameters": [
-          {
-            "in": "header",
-            "name": "Authorization",
-            "type": "string",
-            "required": true,
-            "description": "Bearer token in the format \"Bearer <token>\""
-          }
-        ],
+
         "responses": {
           "204": {
             "description": "Logout successful",
@@ -190,16 +182,6 @@
         "tags": ["Users"],
         "summary": "Get the data object of the current user",
         "security": [{ "Bearer": [] }],
-        "parameters": [
-          {
-            "in": "header",
-            "name": "Authorization",
-            "type": "string",
-            "required": true,
-            "description": "Bearer token in the format \"Bearer <token>\""
-          }
-        ],
-
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -228,15 +210,7 @@
         "consumes": ["multipart/form-data"],
         "summary": "Update user's data by id",
         "security": [{ "Bearer": [] }],
-        "parameters": [
-          {
-            "in": "header",
-            "name": "Authorization",
-            "type": "string",
-            "required": true,
-            "description": "Bearer token in the format \"Bearer <token>\""
-          }
-        ],
+
         "requestBody": {
           "description": "User's data object",
           "required": true,
@@ -289,15 +263,7 @@
         "tags": ["Pets"],
         "summary": "Add a user's pet",
         "security": [{ "Bearer": [] }],
-        "parameters": [
-          {
-            "in": "header",
-            "name": "Authorization",
-            "type": "string",
-            "required": true,
-            "description": "Bearer token in the format \"Bearer <token>\""
-          }
-        ],
+
         "requestBody": {
           "description": "User pet data object",
           "required": true,
@@ -346,15 +312,7 @@
         "tags": ["Pets"],
         "summary": "Get a list of user's pets",
         "security": [{ "Bearer": [] }],
-        "parameters": [
-          {
-            "in": "header",
-            "name": "Authorization",
-            "type": "string",
-            "required": true,
-            "description": "Bearer token in the format \"Bearer <token>\""
-          }
-        ],
+
         "responses": {
           "200": {
             "description": "Successful operation of adding a pet",
@@ -467,15 +425,7 @@
         "tags": ["Notices"],
         "summary": "Create a notice",
         "security": [{ "Bearer": [] }],
-        "parameters": [
-          {
-            "in": "header",
-            "name": "Authorization",
-            "type": "string",
-            "required": true,
-            "description": "Bearer token in the format \"Bearer <token>\""
-          }
-        ],
+
         "requestBody": {
           "description": "Notice's pet data object",
           "required": true,
@@ -681,15 +631,6 @@
         "tags": ["Notices"],
         "summary": "Get all current user notices",
         "security": [{ "Bearer": [] }],
-        "parameters": [
-          {
-            "in": "header",
-            "name": "Authorization",
-            "type": "string",
-            "required": true,
-            "description": "Bearer token in the format \"Bearer <token>\""
-          }
-        ],
 
         "responses": {
           "200": {
