@@ -1560,27 +1560,27 @@
             "example": "Not found"
           }
         }
-      }
-    },
-
-    "WorkDay": {
-      "type": "object",
-      "properties": {
-        "isOpen": {
-          "type": "boolean",
-          "description": "Indicates if the organization is open on this day"
-        },
-        "from": {
-          "type": "string",
-          "description": "The opening time of the organization (e.g., '09:00')"
-        },
-        "to": {
-          "type": "string",
-          "description": "The closing time of the organization (e.g., '17:00')"
-        }
       },
-      "example": {
-        "isOpen": false
+
+      "WorkDay": {
+        "type": "object",
+        "properties": {
+          "isOpen": {
+            "type": "boolean",
+            "description": "Indicates if the organization is open on this day"
+          },
+          "from": {
+            "type": "string",
+            "description": "The opening time of the organization (e.g., '09:00')"
+          },
+          "to": {
+            "type": "string",
+            "description": "The closing time of the organization (e.g., '17:00')"
+          }
+        },
+        "example": {
+          "isOpen": false
+        }
       }
     },
 
