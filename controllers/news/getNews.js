@@ -16,9 +16,14 @@ const getNews = catchAsync(async (req, res) => {
 
     const searchResult = getNews.filter(item => item.title.includes(searchQuery))
 
+    console.log(searchResult.length);
+
     const paginatedResult = searchResult.slice(skip, skip + limit);
 
-    res.status(200).json({paginatedResult})
+    res.status(200).json({
+        total: searchResult.length,
+        data: paginatedResult
+    })
 })
 
 module.exports = {
