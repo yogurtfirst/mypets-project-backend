@@ -869,8 +869,8 @@
           "birthday": {
             "type": "string",
             "format": "date",
-            "description": "User's birthday in format DD.MM.YYYY",
-            "example": "01.01.1990"
+            "description": "User's birthday in format YYYY-MM-DD",
+            "example": "2000-01-01"
           },
           "phone": {
             "type": "string",
@@ -912,7 +912,7 @@
           "birthday": {
             "type": "string",
             "format": "date",
-            "description": "User's birthday in format DD.MM.YYYY",
+            "description": "User's birthday in format YYYY-MM-DD",
             "example": "01.01.1990"
           },
           "phone": {
@@ -944,8 +944,8 @@
           },
           "birthday": {
             "type": "string",
-            "description": "Pet's birthday in format DD.MM.YYYY",
-            "example": "15.05.2017"
+            "description": "Pet's birthday in format YYYY-MM-DD",
+            "example": "2017-05-15"
           },
           "type": {
             "type": "string",
@@ -988,8 +988,8 @@
             },
             "birthday": {
               "type": "string",
-              "description": "Pet's birthday in format DD.MM.YYYY",
-              "example": "15.05.2017"
+              "description": "Pet's birthday in format YYYY-MM-DD",
+              "example": "2017-05-15"
             },
             "type": {
               "type": "string",
@@ -1063,8 +1063,8 @@
             },
             "birthday": {
               "type": "string",
-              "description": "Pet's birthday in format DD.MM.YYYY",
-              "example": "21.09.2020"
+              "description": "Pet's birthday in format YYYY-MM-DD",
+              "example": "2020-09-21"
             },
             "petType": {
               "type": "string",
@@ -1154,8 +1154,8 @@
           },
           "birthday": {
             "type": "string",
-            "description": "Pet's birthday in format DD.MM.YYYY",
-            "example": "21.09.2020"
+            "description": "Pet's birthday in format YYYY-MM-DD",
+            "example": "2020-09-21"
           },
           "petType": {
             "type": "string",
@@ -1215,8 +1215,8 @@
           },
           "birthday": {
             "type": "string",
-            "description": "Pet's birthday in format DD.MM.YYYY",
-            "example": "21.09.2020"
+            "description": "Pet's birthday in format YYYY-MM-DD",
+            "example": "2020-09-21"
           },
           "petType": {
             "type": "string",
@@ -1294,7 +1294,7 @@
           },
           "birthday": {
             "type": "string",
-            "description": "Pet's birthday in format DD.MM.YYYY",
+            "description": "Pet's birthday in format YYYY-MM-DD",
             "example": "21.09.2020"
           },
           "petType": {
