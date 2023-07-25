@@ -7,7 +7,7 @@
   },
   "consumes": ["application/json", "multipart/form-data"],
   "produces": ["application/json"],
-  "servers": [{ "url": "http://localhost:3000" }],
+  "servers": [{ "url": "http://localhost:3000/api" }],
   "tags": [
     {
       "name": "Auth",
@@ -36,7 +36,7 @@
   ],
 
   "paths": {
-    "/api/auth/register": {
+    "/auth/register": {
       "post": {
         "tags": ["Auth"],
         "summary": "User registration",
@@ -88,7 +88,7 @@
         }
       }
     },
-    "/api/auth/login": {
+    "/auth/login": {
       "post": {
         "tags": ["Auth"],
         "summary": "User login",
@@ -140,7 +140,7 @@
         }
       }
     },
-    "/api/auth/logout": {
+    "/auth/logout": {
       "post": {
         "tags": ["Auth"],
         "summary": "User logout",
@@ -185,7 +185,7 @@
       }
     },
 
-    "/api/users": {
+    "/users": {
       "get": {
         "tags": ["Users"],
         "summary": "Get the data object of the current user",
@@ -266,7 +266,7 @@
       }
     },
 
-    "/api/pets": {
+    "/pets": {
       "post": {
         "tags": ["Pets"],
         "summary": "Add a user's pet",
@@ -346,7 +346,7 @@
       }
     },
 
-    "/api/pets/:petId": {
+    "/pets/:petId": {
       "delete": {
         "tags": ["Pets"],
         "summary": "Delete a user's pet",
@@ -395,7 +395,7 @@
       }
     },
 
-    "/api/notices": {
+    "/notices": {
       "get": {
         "tags": ["Notices"],
         "summary": "Get all notices",
@@ -500,7 +500,7 @@
         }
       }
     },
-    "/api/notices/:noticeId": {
+    "/notices/:noticeId": {
       "get": {
         "tags": ["Notices"],
         "summary": "Get a notice by id",
@@ -631,7 +631,7 @@
       }
     },
 
-    "/api/notices/self": {
+    "/notices/self": {
       "get": {
         "tags": ["Notices"],
         "summary": "Get all current user notices",
@@ -662,7 +662,7 @@
       }
     },
 
-    "/api/friends": {
+    "/friends": {
       "get": {
         "tags": ["Friends"],
         "summary": "Get a list of out friends",
@@ -682,7 +682,7 @@
       }
     },
 
-    "/api/news": {
+    "/news": {
       "get": {
         "tags": ["News"],
         "summary": "Get a list of news",
