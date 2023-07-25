@@ -2,15 +2,22 @@ const express = require("express");
 const noticesCtrl = require("../controllers/notices");
 const noticesMdwr = require("../middlewares/notices");
 const { protect } = require("../middlewares/auth");
-const { uploadTmp } = require('../services/multer');
-const { updateImage } = require('../middlewares/notices');
+const { uploadTmp } = require("../services/multer");
+const { updateImage } = require("../middlewares/notices");
 
 const noticesRouter = express.Router();
 
-noticesRouter.get("/", noticesCtrl.listNotices);
+noticesRouter.get(
+  "/",
+  noticesMdwr.checkListNotices,
+  noticesMdwr.checkAccessToFavorite,
+  noticesCtrl.listNotices
+);
 noticesRouter.post(
-  "/", 
-  protect, uploadTmp.single('photo'), updateImage,
+  "/",
+  protect,
+  uploadTmp.single("photo"),
+  updateImage,
   noticesMdwr.checkAddNotice,
   noticesCtrl.addNotice
 );
