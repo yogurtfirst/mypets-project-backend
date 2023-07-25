@@ -2,7 +2,7 @@ const path = require('path')
 const { readFile } = require('fs/promises')
 const { catchAsync } = require('../../utils')
 
-const news = catchAsync(async (req, res) => {
+const getNews = catchAsync(async (req, res) => {
     const newsPath = path.join('externalSources', 'news.json')
 
     if(!req.query.search) req.query.search = ''
@@ -22,5 +22,5 @@ const news = catchAsync(async (req, res) => {
 })
 
 module.exports = {
-    news
+    getNews
 }
