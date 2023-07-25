@@ -24,6 +24,14 @@
     {
       "name": "Notices",
       "description": "Notices endpoints"
+    },
+    {
+      "name": "Friends",
+      "description": "Friends list"
+    },
+    {
+      "name": "News",
+      "description": "News endpoints"
     }
   ],
 
@@ -315,7 +323,7 @@
 
         "responses": {
           "200": {
-            "description": "Successful operation of adding a pet",
+            "description": "Successful operation",
             "content": {
               "application/json": {
                 "schema": {
@@ -344,13 +352,6 @@
         "summary": "Delete a user's pet",
         "security": [{ "Bearer": [] }],
         "parameters": [
-          {
-            "in": "header",
-            "name": "Authorization",
-            "type": "string",
-            "required": true,
-            "description": "Bearer token in the format \"Bearer <token>\""
-          },
           {
             "in": "path",
             "name": "petId",
@@ -405,16 +406,6 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/GetNoticesListResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Headers of user requests are missing a token",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedError"
                 }
               }
             }
@@ -496,16 +487,6 @@
               }
             }
           },
-          "401": {
-            "description": "Headers of user requests are missing a token",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedError"
-                }
-              }
-            }
-          },
           "404": {
             "description": "Unauthorized (Invalid access token)",
             "content": {
@@ -523,13 +504,6 @@
         "summary": "Delete a notice by id",
         "security": [{ "Bearer": [] }],
         "parameters": [
-          {
-            "in": "header",
-            "name": "Authorization",
-            "type": "string",
-            "required": true,
-            "description": "Bearer token in the format \"Bearer <token>\""
-          },
           {
             "in": "path",
             "name": "noticeId",
@@ -576,13 +550,6 @@
         "summary": "Update favourites in a notice",
         "security": [{ "Bearer": [] }],
         "parameters": [
-          {
-            "in": "header",
-            "name": "Authorization",
-            "type": "string",
-            "required": true,
-            "description": "Bearer token in the format \"Bearer <token>\""
-          },
           {
             "in": "path",
             "name": "noticeId",
@@ -649,6 +616,46 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/api/friends": {
+      "get": {
+        "tags": ["Friends"],
+        "summary": "Get a list of out friends",
+
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetFriendsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/api/news": {
+      "get": {
+        "tags": ["News"],
+        "summary": "Get a list of news",
+
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetNewsResponse"
                 }
               }
             }
@@ -862,8 +869,8 @@
           "birthday": {
             "type": "string",
             "format": "date",
-            "description": "User's birthday in format DD.MM.YYYY",
-            "example": "01.01.1990"
+            "description": "User's birthday in format YYYY-MM-DD",
+            "example": "2000-01-01"
           },
           "phone": {
             "type": "string",
@@ -905,7 +912,7 @@
           "birthday": {
             "type": "string",
             "format": "date",
-            "description": "User's birthday in format DD.MM.YYYY",
+            "description": "User's birthday in format YYYY-MM-DD",
             "example": "01.01.1990"
           },
           "phone": {
@@ -928,7 +935,7 @@
 
       "AddPetRequest": {
         "type": "object",
-        "required": ["name", "birthday", "type", "comments", "photoURL"],
+        "required": ["name", "birthday", "type", "comments", "photo"],
         "properties": {
           "name": {
             "type": "string",
@@ -937,8 +944,8 @@
           },
           "birthday": {
             "type": "string",
-            "description": "Pet's birthday in format DD.MM.YYYY",
-            "example": "15.05.2017"
+            "description": "Pet's birthday in format YYYY-MM-DD",
+            "example": "2017-05-15"
           },
           "type": {
             "type": "string",
@@ -950,7 +957,7 @@
             "description": "Additional comments about the pet",
             "example": "A playful and friendly dog."
           },
-          "photoURL": {
+          "photo": {
             "type": "string",
             "description": "URL to user's avatar image",
             "required": true,
@@ -981,8 +988,8 @@
             },
             "birthday": {
               "type": "string",
-              "description": "Pet's birthday in format DD.MM.YYYY",
-              "example": "15.05.2017"
+              "description": "Pet's birthday in format YYYY-MM-DD",
+              "example": "2017-05-15"
             },
             "type": {
               "type": "string",
@@ -1056,8 +1063,8 @@
             },
             "birthday": {
               "type": "string",
-              "description": "Pet's birthday in format DD.MM.YYYY",
-              "example": "21.09.2020"
+              "description": "Pet's birthday in format YYYY-MM-DD",
+              "example": "2020-09-21"
             },
             "petType": {
               "type": "string",
@@ -1127,7 +1134,7 @@
           "location",
           "price",
           "comments",
-          "photoURL"
+          "photo"
         ],
         "properties": {
           "noticeType": {
@@ -1147,8 +1154,8 @@
           },
           "birthday": {
             "type": "string",
-            "description": "Pet's birthday in format DD.MM.YYYY",
-            "example": "21.09.2020"
+            "description": "Pet's birthday in format YYYY-MM-DD",
+            "example": "2020-09-21"
           },
           "petType": {
             "type": "string",
@@ -1175,7 +1182,7 @@
             "description": "Notice's comment",
             "example": "Rich would be the perfect addition to an active family that loves to play and go on walks. I bet he would love having a doggy playmate too!"
           },
-          "photoURL": {
+          "photo": {
             "type": "string",
             "description": "URL to user's avatar image",
             "required": true,
@@ -1208,8 +1215,8 @@
           },
           "birthday": {
             "type": "string",
-            "description": "Pet's birthday in format DD.MM.YYYY",
-            "example": "21.09.2020"
+            "description": "Pet's birthday in format YYYY-MM-DD",
+            "example": "2020-09-21"
           },
           "petType": {
             "type": "string",
@@ -1287,7 +1294,7 @@
           },
           "birthday": {
             "type": "string",
-            "description": "Pet's birthday in format DD.MM.YYYY",
+            "description": "Pet's birthday in format YYYY-MM-DD",
             "example": "21.09.2020"
           },
           "petType": {
@@ -1350,6 +1357,105 @@
         }
       },
 
+      "GetFriendsResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "description": "Partner's Title",
+              "example": "Притулок для бездомних тварин 'Сіріус'"
+            },
+            "url": {
+              "type": "string",
+              "description": "Partner's URL",
+              "example": "https://dogcat.com.ua"
+            },
+            "addressUrl": {
+              "type": "string",
+              "description": "Partner's address URL",
+              "example": "https://goo.gl/maps/iq8NXEUf31EAQCzc6"
+            },
+            "imageUrl": {
+              "type": "string",
+              "description": "Image URL",
+              "example": "https://storage.googleapis.com/kidslikev2_bucket/pets-support/images/sponsors/frame_287.png"
+            },
+            "address": {
+              "type": "string",
+              "description": "Partner's address",
+              "example": "Fedorivka, Kyiv Oblast, Ukraine, 07372"
+            },
+            "workDays": {
+              "type": "array",
+              "description": "The work days of the organization",
+              "items": {
+                "$ref": "#/components/schemas/WorkDay"
+              },
+              "example": [
+                { "isOpen": false },
+                { "isOpen": false },
+                { "isOpen": false },
+                { "isOpen": false },
+                { "isOpen": false },
+                { "isOpen": true, "from": "11:00", "to": "16:00" },
+                { "isOpen": true, "from": "11:00", "to": "16:00" }
+              ]
+            },
+            "phone": {
+              "type": "string",
+              "description": "Partner's text",
+              "example": "+380931934069"
+            },
+            "email": {
+              "type": "string",
+              "description": "Parnter's emai;",
+              "example": "dogcat.sirius.example@gmail.com"
+            }
+          }
+        }
+      },
+
+      "GetNewsResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "imgUrl": {
+              "type": "string",
+              "description": "Image URL",
+              "example": "https://www.nytimes.com/images/2023/04/16/magazine/16mag-LOR/16mag-LOR-blog480.jpg"
+            },
+            "title": {
+              "type": "string",
+              "description": "Title",
+              "example": "What I Learned Dogsitting for New York City’s Opulent Elite"
+            },
+            "text": {
+              "type": "string",
+              "description": "New's text",
+              "example": "In a city of yawning class inequality, some side hustles let you glimpse how the other half lives."
+            },
+            "date": {
+              "type": "string",
+              "description": "New's creation date",
+              "example": "I2023-04-11T09:00:18+0000"
+            },
+            "url": {
+              "type": "string",
+              "description": "New's URL",
+              "example": "https://www.nytimes.com/2023/04/11/magazine/dogsitting-rich-new-york.html"
+            },
+            "id": {
+              "type": "string",
+              "description": "Notice's ID",
+              "example": "nyt://article/8d29f1fc-d146-509d-8ceb-5a5b17d7886b"
+            }
+          }
+        }
+      },
+
       "BadRequestError": {
         "type": "object",
         "properties": {
@@ -1381,6 +1487,28 @@
         }
       }
     },
+
+    "WorkDay": {
+      "type": "object",
+      "properties": {
+        "isOpen": {
+          "type": "boolean",
+          "description": "Indicates if the organization is open on this day"
+        },
+        "from": {
+          "type": "string",
+          "description": "The opening time of the organization (e.g., '09:00')"
+        },
+        "to": {
+          "type": "string",
+          "description": "The closing time of the organization (e.g., '17:00')"
+        }
+      },
+      "example": {
+        "isOpen": false
+      }
+    },
+
     "securitySchemes": {
       "Bearer": {
         "type": "http",
