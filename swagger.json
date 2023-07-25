@@ -7,7 +7,9 @@
   },
   "consumes": ["application/json", "multipart/form-data"],
   "produces": ["application/json"],
-  "servers": [{ "url": "http://localhost:3000/api" }],
+  "servers": [
+    { "url": "http://localhost:3000/api", "description": "Dev Server" }
+  ],
   "tags": [
     {
       "name": "Auth",
@@ -346,7 +348,7 @@
       }
     },
 
-    "/pets/:petId": {
+    "/pets/{petId}": {
       "delete": {
         "tags": ["Pets"],
         "summary": "Delete a user's pet",
@@ -500,7 +502,7 @@
         }
       }
     },
-    "/notices/:noticeId": {
+    "/notices/{noticeId}": {
       "get": {
         "tags": ["Notices"],
         "summary": "Get a notice by id",
