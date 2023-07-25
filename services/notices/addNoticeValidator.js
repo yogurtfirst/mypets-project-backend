@@ -1,6 +1,7 @@
 const Joi = require("joi");
 const noticeTypeEnum = require("../../constants/noticeTypeEnum");
 const petSexEnum = require("../../constants/petSexEnum");
+const { DATE_REGEX } = require("../../constants/regexValues");
 
 exports.addNoticeValidator = (data) =>
   Joi.object()
@@ -10,7 +11,7 @@ exports.addNoticeValidator = (data) =>
         .required(),
       title: Joi.string().min(3).required(),
       name: Joi.string().min(3).required(),
-      birthday: Joi.string().length(10).required(),
+      birthday: Joi.string().regex(DATE_REGEX).required(),
       petType: Joi.string().min(3).required(),
       sex: Joi.string()
         .valid(...Object.values(petSexEnum))
