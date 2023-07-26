@@ -18,8 +18,8 @@ const updateImage = async (req, res, next) => {
         
         await fs.unlink(tempUpload)
 
-        req.user.avatarURL = avatarURL
-        req.user.avatarId = avatarId
+        req.body.avatarURL = avatarURL
+        req.body.avatarId = avatarId
     }
     next()
 }

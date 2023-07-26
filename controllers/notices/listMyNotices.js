@@ -9,8 +9,8 @@ exports.listMyNotices = catchAsync(async (req, res) => {
   const myNotices = await Notices.find({ owner: userId });
 
   if (myNotices.length === 0)
-    return res.status(404).json({
-      message: "You have no notices",
+    return res.status(200).json({
+      data: [], total: 0,
     });
 
   const paginatedNotices = myNotices.slice(skip, skip + limit);

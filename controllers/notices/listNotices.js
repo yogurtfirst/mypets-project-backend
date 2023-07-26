@@ -14,6 +14,11 @@ exports.listNotices = catchAsync(async (req, res) => {
 
   const notices = await Notices.find({ noticeType });
 
+  if (notices.length === 0)
+    return res.status(200).json({
+      data: [], total: 0,
+    });
+
   const paginatedNotices = notices.slice(skip, skip + limit);
 
   res.status(200).json({ data: paginatedNotices, total: notices.length });
