@@ -638,7 +638,94 @@
         "tags": ["Notices"],
         "summary": "Get all current user notices",
         "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The page number for pagination",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The maximum number of items per page",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "search",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search for notices by keyword",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetNoticesListResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Headers of user requests are missing a token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
 
+    "/notices/favorites": {
+      "get": {
+        "tags": ["Notices"],
+        "summary": "Get user's favorites notices",
+        "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The page number for pagination",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The maximum number of items per page",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "search",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search for notices by keyword",
+            "required": false
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -1442,7 +1529,7 @@
             "title": {
               "type": "string",
               "description": "Partner's Title",
-              "example": "Притулок для бездомних тварин 'Сіріус'"
+              "example": "Shelter for homeless animals 'Sirius'"
             },
             "url": {
               "type": "string",
