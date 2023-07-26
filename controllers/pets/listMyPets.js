@@ -4,7 +4,7 @@ const { catchAsync } = require("../../utils");
 exports.listMyPets = catchAsync(async (req, res) => {
   const userId = req.user.id;
 
-  const pets = await MyPets.find({ owner: userId });
+  const pets = await MyPets.find({ owner: userId }).select('-createdAt -updatedAt -photoId -owner');
 
   if (!pets)
     return res.status(404).json({

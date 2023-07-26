@@ -22,7 +22,6 @@ exports.protect = catchAsync(async (req, res, next) => {
   const currentUser = await Users.findById(decoded.id);
 
   if (!currentUser || currentUser.token !== token) throw new AppError(401, "Not authorized");
-  currentUser.token = undefined
   
   req.user = currentUser;
   req.token = token;

@@ -7,9 +7,17 @@ exports.updateUserData = catchAsync(async (req, res) => {
     user[key] = req.body[key]
   })
 
-  user.token = req.token
   await user.save()
-  user.token = undefined
   
-  res.status(200).json({user})
+  res.status(200).json({
+    user: {
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      phone: user.phone,
+      birthday: user.birthday,
+      city: user.city,
+      avatarURL: user.avatarURL,
+    }
+  })
 })
