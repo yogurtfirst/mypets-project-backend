@@ -13,12 +13,11 @@ exports.register = catchAsync(async (req, res) => {
 
     await newUser.save()
 
-    newUser.token = undefined
-    newUser.password = undefined
-
   res.status(201).json({
-    user: newUser,
-    isNewUser: true,
+    user: {
+      name: newUser.name,
+    },
     token,
+    isNewUser: true,
   })
 })
