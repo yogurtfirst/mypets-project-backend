@@ -584,7 +584,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AddNoticeResponse"
+                  "$ref": "#/components/schemas/UpdateNoticeByIdResponse"
                 }
               }
             }
@@ -1137,86 +1137,96 @@
       },
 
       "GetNoticesListResponse": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "_id": {
-              "type": "string",
-              "description": "Notice's ID",
-              "example": "02aa6jyt15cs5e00020qw24d"
-            },
-            "noticeType": {
-              "type": "string",
-              "description": "Notice's type",
-              "example": "in good hands"
-            },
-            "title": {
-              "type": "string",
-              "description": "Notice's title",
-              "example": "Cute dog looking for a home"
-            },
-            "name": {
-              "type": "string",
-              "description": "Pet's name",
-              "example": "Rich"
-            },
-            "birthday": {
-              "type": "string",
-              "description": "Pet's birthday in format YYYY-MM-DD",
-              "example": "2020-09-21"
-            },
-            "petType": {
-              "type": "string",
-              "description": "Pet's type",
-              "example": "Pomeranian"
-            },
-            "sex": {
-              "type": "string",
-              "description": "Pet's sex",
-              "example": "male"
-            },
-            "location": {
-              "type": "string",
-              "description": "Notice's location",
-              "example": "Lviv"
-            },
-            "price": {
-              "type": "integer",
-              "description": "Notice's price (Available only if type of notice equal sell)",
-              "example": null
-            },
-            "comments": {
-              "type": "string",
-              "description": "Notice's comment",
-              "example": "Rich would be the perfect addition to an active family that loves to play and go on walks. I bet he would love having a doggy playmate too!"
-            },
-            "photoURL": {
-              "type": "string",
-              "description": "Pet's photo in notice",
-              "example": "https://res.cloudinary.com/doe8sk18b/image/upload/v1690028176/wwesmackd0wnq24wwap0e.jpg"
-            },
-            "favorite": {
-              "type": "array",
-              "description": "List of users who have favorited this notification",
-              "items": {
-                "type": "string"
-              },
-              "example": [
-                "64bc6fad76da5e12883fb322",
-                "44bf6fnw76dd5c12811fb175",
-                "61bf2ced00cd5c12121fb030"
-              ]
-            },
-            "owner": {
-              "type": "string",
-              "format": "ObjectId",
-              "description": "ID of the pet's owner (User)",
-              "example": "603f6508e4a75c00223a446a"
-            },
-            "createdAt": {
-              "type": "string",
-              "example": "2023-07-23T19:21:53.954Z"
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "integer",
+            "description": "Total notices",
+            "example": 1
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "description": "Notice's ID",
+                  "example": "02aa6jyt15cs5e00020qw24d"
+                },
+                "noticeType": {
+                  "type": "string",
+                  "description": "Notice's type",
+                  "example": "in good hands"
+                },
+                "title": {
+                  "type": "string",
+                  "description": "Notice's title",
+                  "example": "Cute dog looking for a home"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Pet's name",
+                  "example": "Rich"
+                },
+                "birthday": {
+                  "type": "string",
+                  "description": "Pet's birthday in format YYYY-MM-DD",
+                  "example": "2020-09-21"
+                },
+                "petType": {
+                  "type": "string",
+                  "description": "Pet's type",
+                  "example": "Pomeranian"
+                },
+                "sex": {
+                  "type": "string",
+                  "description": "Pet's sex",
+                  "example": "male"
+                },
+                "location": {
+                  "type": "string",
+                  "description": "Notice's location",
+                  "example": "Lviv"
+                },
+                "price": {
+                  "type": "integer",
+                  "description": "Notice's price (Available only if type of notice equal sell)",
+                  "example": null
+                },
+                "comments": {
+                  "type": "string",
+                  "description": "Notice's comment",
+                  "example": "Rich would be the perfect addition to an active family that loves to play and go on walks. I bet he would love having a doggy playmate too!"
+                },
+                "photoURL": {
+                  "type": "string",
+                  "description": "Pet's photo in notice",
+                  "example": "https://res.cloudinary.com/doe8sk18b/image/upload/v1690028176/wwesmackd0wnq24wwap0e.jpg"
+                },
+                "favorite": {
+                  "type": "array",
+                  "description": "List of users who have favorited this notification",
+                  "items": {
+                    "type": "string"
+                  },
+                  "example": [
+                    "64bc6fad76da5e12883fb322",
+                    "44bf6fnw76dd5c12811fb175",
+                    "61bf2ced00cd5c12121fb030"
+                  ]
+                },
+                "owner": {
+                  "type": "string",
+                  "format": "ObjectId",
+                  "description": "ID of the pet's owner (User)",
+                  "example": "603f6508e4a75c00223a446a"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "example": "2023-07-23T19:21:53.954Z"
+                }
+              }
             }
           }
         }
@@ -1293,78 +1303,10 @@
       "AddNoticeResponse": {
         "type": "object",
         "properties": {
-          "noticeType": {
+          "message": {
             "type": "string",
-            "description": "Notice's type",
-            "example": "sell"
-          },
-          "title": {
-            "type": "string",
-            "description": "Notice's title",
-            "example": "Cute dog looking for a home"
-          },
-          "_id": {
-            "type": "string",
-            "description": "Pet's id",
-            "example": "7c7904d4-28a5-11ee-be56-0242ac120002"
-          },
-          "name": {
-            "type": "string",
-            "description": "Pet's name",
-            "example": "Rich"
-          },
-          "birthday": {
-            "type": "string",
-            "description": "Pet's birthday in format YYYY-MM-DD",
-            "example": "2020-09-21"
-          },
-          "petType": {
-            "type": "string",
-            "description": "Pet's type",
-            "example": "Pomeranian"
-          },
-          "sex": {
-            "type": "string",
-            "description": "Pet's sex",
-            "example": "male"
-          },
-          "location": {
-            "type": "string",
-            "description": "Notice's location",
-            "example": "Lviv"
-          },
-          "price": {
-            "type": "integer",
-            "description": "Notice's price (Available only if type of notice equal sell)",
-            "example": 12500
-          },
-          "comments": {
-            "type": "string",
-            "description": "Notice's comment",
-            "example": "Rich would be the perfect addition to an active family that loves to play and go on walks. I bet he would love having a doggy playmate too!"
-          },
-          "photoURL": {
-            "type": "string",
-            "description": "Pet's photo in notice",
-            "example": "https://res.cloudinary.com/doe8sk18b/image/upload/v1690028176/wwesmackd0wnq24wwap0e.jpg"
-          },
-          "favorite": {
-            "type": "array",
-            "description": "List of users who have favorited this notification",
-            "items": {
-              "type": "string"
-            },
-            "example": []
-          },
-          "owner": {
-            "type": "string",
-            "format": "ObjectId",
-            "description": "ID of the pet's owner (User)",
-            "example": "603f6508e4a75c00223a446a"
-          },
-          "createdAt": {
-            "type": "string",
-            "example": "2023-07-23T19:21:53.954Z"
+            "description": "Successful operation",
+            "example": "Your ad has been created"
           }
         }
       },
@@ -1453,6 +1395,95 @@
           "message": {
             "type": "string",
             "example": "Notice has been removed."
+          }
+        }
+      },
+      "UpdateNoticeByIdResponse": {
+        "type": "object",
+        "properties": {
+          "notice": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "description": "Pet's id",
+                "example": "7c7904d4-28a5-11ee-be56-0242ac120002"
+              },
+              "noticeType": {
+                "type": "string",
+                "description": "Notice's type",
+                "example": "sell"
+              },
+              "title": {
+                "type": "string",
+                "description": "Notice's title",
+                "example": "Cute dog looking for a home"
+              },
+              "name": {
+                "type": "string",
+                "description": "Pet's name",
+                "example": "Rich"
+              },
+              "birthday": {
+                "type": "string",
+                "description": "Pet's birthday in format YYYY-MM-DD",
+                "example": "21.09.2020"
+              },
+              "petType": {
+                "type": "string",
+                "description": "Pet's type",
+                "example": "Pomeranian"
+              },
+              "sex": {
+                "type": "string",
+                "description": "Pet's sex",
+                "example": "male"
+              },
+              "location": {
+                "type": "string",
+                "description": "Notice's location",
+                "example": "Lviv"
+              },
+              "price": {
+                "type": "integer",
+                "description": "Notice's price (Available only if type of notice equal sell)",
+                "example": 12500
+              },
+              "comments": {
+                "type": "string",
+                "description": "Notice's comment",
+                "example": "Rich would be the perfect addition to an active family that loves to play and go on walks. I bet he would love having a doggy playmate too!"
+              },
+              "photoURL": {
+                "type": "string",
+                "description": "Pet's photo in notice",
+                "example": "https://res.cloudinary.com/doe8sk18b/image/upload/v1690028176/wwesmackd0wnq24wwap0e.jpg"
+              },
+              "favorite": {
+                "type": "integer",
+                "description": "Quantity of users who have favorited this notification",
+                "example": 2
+              },
+              "isFavorite": {
+                "type": "boolean",
+                "description": "The favorite status for current user",
+                "false": false
+              },
+              "createdAt": {
+                "type": "string",
+                "example": "2023-07-23T19:21:53.954Z"
+              },
+              "ownerEmail": {
+                "type": "string",
+                "description": "Owner's email",
+                "example": "testswag@example.com"
+              },
+              "ownerPhone": {
+                "type": "string",
+                "description": "Owner's phone",
+                "example": "+380000000000"
+              }
+            }
           }
         }
       },
