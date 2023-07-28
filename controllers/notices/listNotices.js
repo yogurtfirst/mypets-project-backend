@@ -2,8 +2,8 @@ const dateFns = require("date-fns");
 const { Notices } = require("../../models");
 const { catchAsync } = require("../../utils");
 const noticeTypeEnum = require("../../constants/noticeTypeEnum");
-const ageFilterEnumEnum = require("../../constants/ageFilterEnum");
 const petSexEnum = require("../../constants/petSexEnum");
+const ageFilterEnum = require("../../constants/ageFilterEnum");
 
 exports.listNotices = catchAsync(async (req, res) => {
   let noticeType;
@@ -13,7 +13,13 @@ exports.listNotices = catchAsync(async (req, res) => {
     ? (noticeType = req.query.type)
     : (noticeType = noticeTypeEnum.SELL);
 
-  const ageFilter = req.query.age;
+  let ageFilter;
+
+  Array.of(req.query.age).every((ageFilter) =>
+    Object.values(ageFilterEnum).includes(ageFilter)
+  )
+    ? (ageFilter = req.query.age)
+    : (ageFilter = undefined);
 
   let sexFilter;
   Object.values(petSexEnum).includes(req.query.sex)
@@ -37,6 +43,8 @@ exports.listNotices = catchAsync(async (req, res) => {
       });
       if (isInArray) {
         notice = { ...notice, isFavorite: true };
+      } else {
+        notice = { ...notice, isFavorite: false };
       }
     }
 
@@ -45,14 +53,11 @@ exports.listNotices = catchAsync(async (req, res) => {
       new Date(notice.birthday)
     );
 
-    notice.categories = [];
-
     if (ageInMonths >= 3 && ageInMonths <= 12)
-      notice.categories.push(ageFilterEnumEnum.threeToTwelweMonths);
-    if (ageInMonths >= 12 && ageInMonths < 24)
-      notice.categories.push(ageFilterEnumEnum.upToOneYear);
-    if (ageInMonths >= 24)
-      notice.categories.push(ageFilterEnumEnum.upToTwoYears);
+      notice.category = ageFilterEnum.threeToTwelweMonths;
+    if (ageInMonths > 12 && ageInMonths < 24)
+      notice.category = ageFilterEnum.upToOneYear;
+    if (ageInMonths >= 24) notice.category = ageFilterEnum.upToTwoYears;
 
     if (ageInMonths < 12) {
       notice.age = `${ageInMonths} months`;
@@ -60,7 +65,6 @@ exports.listNotices = catchAsync(async (req, res) => {
       notice.age = `${Math.floor(ageInMonths / 12)} years`;
     }
     notice.favorite = notice.favorite.length;
-
     const {
       noticeType,
       title,
@@ -70,7 +74,7 @@ exports.listNotices = catchAsync(async (req, res) => {
       favorite,
       isFavorite,
       age,
-      categories,
+      category,
     } = notice;
     return {
       noticeType,
@@ -81,14 +85,12 @@ exports.listNotices = catchAsync(async (req, res) => {
       favorite,
       isFavorite,
       age,
-      categories,
+      category,
     };
   });
 
   if (ageFilter)
-    notices = notices.filter((notice) =>
-      notice.categories.some((category) => ageFilter.includes(category))
-    );
+    notices = notices.filter((notice) => ageFilter.includes(notice.category));
 
   const paginatedNotices = notices.slice(skip, skip + limit);
 
