@@ -9,8 +9,8 @@ exports.listFavorites = catchAsync(async (req, res, next) => {
   const favorites = await Notices.find({ favorite: userId });
 
   if (favorites.length === 0)
-    return res.status(404).json({
-      message: "You have no favorite notices",
+    return res.status(200).json({
+      data: [], total: 0,
     });
 
   const paginatedFavorites = favorites.slice(skip, skip + limit);
