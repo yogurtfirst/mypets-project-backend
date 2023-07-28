@@ -153,32 +153,12 @@
             "description": "Logout successful",
             "content": {}
           },
-          "400": {
-            "description": "No token provided",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BadRequestError"
-                }
-              }
-            }
-          },
           "401": {
             "description": "Unauthorized (Invalid access token)",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/UnauthorizedError"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Unauthorized (Invalid access token)",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/NotFoundError"
                 }
               }
             }
@@ -858,17 +838,6 @@
           "user": {
             "type": "object",
             "properties": {
-              "email": {
-                "type": "string",
-                "description": "User's email",
-                "format": "email",
-                "example": "user@example.com"
-              },
-              "_id": {
-                "type": "string",
-                "description": "User's Id",
-                "example": "64bc6fad76dd5e12883fb322"
-              },
               "name": {
                 "type": "string",
                 "description": "Username",
@@ -918,31 +887,20 @@
       "LoginResponse": {
         "type": "object",
         "properties": {
-          "token": {
-            "type": "string",
-            "description": "User's access token",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0YTQ0NjhlMDNjc3E3OTZhZDk3N2Q1YiJ9.Yh8Xgp-e6DL8-23gfFEUaJK6G19qahZPlsrYkLrDccs"
-          },
           "user": {
             "type": "object",
             "properties": {
-              "email": {
-                "type": "string",
-                "description": "User's email",
-                "format": "email",
-                "example": "user@example.com"
-              },
-              "_id": {
-                "type": "string",
-                "description": "User's Id",
-                "example": "64bc6fad76dd5e12883fb322"
-              },
               "name": {
                 "type": "string",
                 "description": "Username",
                 "example": "Jhon"
               }
             }
+          },
+          "token": {
+            "type": "string",
+            "description": "User's access token",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0YTQ0NjhlMDNjc3E3OTZhZDk3N2Q1YiJ9.Yh8Xgp-e6DL8-23gfFEUaJK6G19qahZPlsrYkLrDccs"
           }
         }
       },
@@ -979,27 +937,6 @@
           "user": {
             "type": "object",
             "properties": {
-              "email": {
-                "type": "string",
-                "description": "User's email",
-                "format": "email",
-                "example": "user@example.com"
-              },
-              "phone": {
-                "type": "string",
-                "description": "User's phone",
-                "example": "+1234567890"
-              },
-              "city": {
-                "type": "string",
-                "description": "The city where the user lives",
-                "example": "Lviv"
-              },
-              "avatarURL": {
-                "type": "string",
-                "description": "The URL to the user's avatar",
-                "example": "https://res.cloudinary.com/doe8sk18b/image/upload/v1690028176/eauamgos5bwx49rxsp5e.jpg"
-              },
               "_id": {
                 "type": "string",
                 "description": "User's Id",
@@ -1009,6 +946,17 @@
                 "type": "string",
                 "description": "Username",
                 "example": "Jhon"
+              },
+              "email": {
+                "type": "string",
+                "description": "User's email",
+                "format": "email",
+                "example": "user@example.com"
+              },
+              "avatarURL": {
+                "type": "string",
+                "description": "The URL to the user's avatar",
+                "example": "https://res.cloudinary.com/doe8sk18b/image/upload/v1690028176/eauamgos5bwx49rxsp5e.jpg"
               }
             }
           }
@@ -1017,18 +965,12 @@
 
       "UpdateUserRequest": {
         "type": "object",
-        "required": ["name", "email", "birthday", "phone", "city", "avatar"],
+        "required": ["name", "birthday", "phone", "city", "avatar"],
         "properties": {
           "name": {
             "type": "string",
             "description": "Username",
             "example": "Jhon"
-          },
-          "email": {
-            "type": "string",
-            "description": "User's email",
-            "format": "email",
-            "example": "user@example.com"
           },
           "birthday": {
             "type": "string",
@@ -1057,6 +999,11 @@
       "UpdateUserResponse": {
         "type": "object",
         "properties": {
+          "_id": {
+            "type": "string",
+            "description": "User's Id",
+            "example": "64bc6fad76dd5e12883fb322"
+          },
           "name": {
             "type": "string",
             "description": "Username",
@@ -1068,21 +1015,16 @@
             "format": "email",
             "example": "user@example.com"
           },
-          "_id": {
+          "phone": {
             "type": "string",
-            "description": "User's Id",
-            "example": "64bc6fad76dd5e12883fb322"
+            "description": "User's phone number",
+            "example": "+1234567890"
           },
           "birthday": {
             "type": "string",
             "format": "date",
             "description": "User's birthday in format YYYY-MM-DD",
             "example": "01.01.1990"
-          },
-          "phone": {
-            "type": "string",
-            "description": "User's phone number",
-            "example": "+1234567890"
           },
           "city": {
             "type": "string",
@@ -1132,59 +1074,53 @@
       "AddPetResponse": {
         "type": "object",
         "properties": {
-          "_id": {
+          "message": {
             "type": "string",
-            "description": "Pet's id",
-            "example": "7c7904d4-28a5-11ee-be56-0242ac120002"
+            "description": "response message",
+            "example": "Your pet is added"
           }
         }
       },
 
       "GetPetListResponse": {
-        "type": "array",
-        "items": {
-          "type": "object",
-          "properties": {
-            "name": {
-              "type": "string",
-              "description": "Pet's name",
-              "example": "Barsik"
-            },
-            "birthday": {
-              "type": "string",
-              "description": "Pet's birthday in format YYYY-MM-DD",
-              "example": "2017-05-15"
-            },
-            "type": {
-              "type": "string",
-              "description": "Pet's type (e.g., Persian cat, Basenji, Pomeranian, Pug)",
-              "example": "French bulldog"
-            },
-            "comments": {
-              "type": "string",
-              "description": "Additional comments about the pet",
-              "example": "A playful and friendly dog."
-            },
-            "photoURL": {
-              "type": "string",
-              "description": "URL to the pet's photo",
-              "example": "https://res.cloudinary.com/doe8sk18b/image/upload/v1690028176/wwesmackd0wnq24wwap0e.jpg"
-            },
-            "_id": {
-              "type": "string",
-              "description": "Pet Id",
-              "example": "64bc46df71b9b523c278cccb"
-            },
-            "owner": {
-              "type": "string",
-              "format": "ObjectId",
-              "description": "ID of the pet's owner (User)",
-              "example": "603f6508e4a75c00223a446a"
-            },
-            "createdAt": {
-              "type": "string",
-              "description": "Created date and time",
-              "example": "2023-07-22T21:15:11.155Z"
+        "type": "object",
+        "properties": {
+          "pets": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "description": "Pet Id",
+                  "example": "64bc46df71b9b523c278cccb"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Pet's name",
+                  "example": "Barsik"
+                },
+                "birthday": {
+                  "type": "string",
+                  "description": "Pet's birthday in format YYYY-MM-DD",
+                  "example": "2017-05-15"
+                },
+                "type": {
+                  "type": "string",
+                  "description": "Pet's type (e.g., Persian cat, Basenji, Pomeranian, Pug)",
+                  "example": "French bulldog"
+                },
+                "comments": {
+                  "type": "string",
+                  "description": "Additional comments about the pet",
+                  "example": "A playful and friendly dog."
+                },
+                "photoURL": {
+                  "type": "string",
+                  "description": "URL to the pet's photo",
+                  "example": "https://res.cloudinary.com/doe8sk18b/image/upload/v1690028176/wwesmackd0wnq24wwap0e.jpg"
+                }
+              }
             }
           }
         }
