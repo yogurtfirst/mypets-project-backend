@@ -7,7 +7,7 @@ const { updateImage } = require("../middlewares/notices");
 
 const noticesRouter = express.Router();
 
-noticesRouter.get("/", noticesCtrl.listNotices);
+noticesRouter.get("/", noticesMdwr.protectListPets, noticesCtrl.listNotices);
 noticesRouter.post(
   "/",
   protect,
