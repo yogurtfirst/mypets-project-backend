@@ -1,7 +1,7 @@
 const ageFilterEnum = {
-  threeToTwelweMonths: "3-12months",
-  upToOneYear: "up-to1year",
-  upToTwoYears: "up-to2years",
+  youngerOneYear: "younger one year",
+  olderOneYear: "older one year",
+  olderTwoYears: "older two years",
 };
 
 module.exports = ageFilterEnum;
