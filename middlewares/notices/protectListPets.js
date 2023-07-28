@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const { catchAsync, AppError } = require("../../utils");
+const { catchAsync } = require("../../utils");
 const { Users } = require("../../models");
 
 exports.protectListPets = catchAsync(async (req, res, next) => {
@@ -14,7 +14,7 @@ exports.protectListPets = catchAsync(async (req, res, next) => {
   try {
     decoded = jwt.verify(token, process.env.JWT_SECRET);
   } catch (error) {
-    throw new AppError(401, "Not authorized");
+    return next();
   }
 
   const currentUser = await Users.findById(decoded.id);
