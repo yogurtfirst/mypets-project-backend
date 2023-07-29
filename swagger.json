@@ -417,6 +417,42 @@
             },
             "description": "Search for notices by keyword",
             "required": false
+          },
+          {
+            "in": "query",
+            "name": "sex",
+            "schema": {
+              "type": "string"
+            },
+            "description": "The sex of the pet",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "young",
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "Is the pet young (0-1 year old)?",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "middle",
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "Is the pet middle (1+ - 2 year old)?",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "older",
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "Is the pet older (2+ year old)?",
+            "required": false
           }
         ],
         "responses": {
@@ -645,6 +681,42 @@
             },
             "description": "Search for notices by keyword",
             "required": false
+          },
+          {
+            "in": "query",
+            "name": "sex",
+            "schema": {
+              "type": "string"
+            },
+            "description": "The sex of the pet",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "young",
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "Is the pet young (0-1 year old)?",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "middle",
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "Is the pet middle (1+ - 2 year old)?",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "older",
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "Is the pet older (2+ year old)?",
+            "required": false
           }
         ],
         "responses": {
@@ -703,6 +775,42 @@
               "type": "string"
             },
             "description": "Search for notices by keyword",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "sex",
+            "schema": {
+              "type": "string"
+            },
+            "description": "The sex of the pet",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "young",
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "Is the pet young (0-1 year old)?",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "middle",
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "Is the pet middle (1+ - 2 year old)?",
+            "required": false
+          },
+          {
+            "in": "query",
+            "name": "older",
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "Is the pet older (2+ year old)?",
             "required": false
           }
         ],
