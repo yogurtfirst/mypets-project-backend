@@ -1,11 +1,21 @@
-const express = require('express')
-const authMdwr = require('../middlewares/auth')
-const authCtrl = require('../controllers/auth')
+const express = require('express');
+const authMdwr = require('../middlewares/auth');
+const authCtrl = require('../controllers/auth');
 
-const authRouter = express.Router()
+const authRouter = express.Router();
 
-authRouter.post('/register', authMdwr.checkRegisterData, authCtrl.register) 
-authRouter.post('/login', authCtrl.login)
-authRouter.post('/logout', authMdwr.protect, authCtrl.logout)
+authRouter.get(
+  '/google',
+  authMdwr.passport.authenticate('google', { scope: ['email', 'profile'] })
+);
+authRouter.get(
+  '/google/callback',
+  authMdwr.passport.authenticate('google', { session: false }),
+  authCtrl.googleAuth
+);
 
-module.exports = authRouter
+authRouter.post('/register', authMdwr.checkRegisterData, authCtrl.register);
+authRouter.post('/login', authCtrl.login);
+authRouter.post('/logout', authMdwr.protect, authCtrl.logout);
+
+module.exports = authRouter;
