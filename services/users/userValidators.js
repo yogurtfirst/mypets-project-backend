@@ -17,8 +17,8 @@ exports.updateUserDataValidator = (data) =>
       .keys({
         name: Joi.string().min(2).max(16).required(),
         birthday: Joi.string().regex(DATE_REGEX).required(),
-        phone: Joi.string().regex(PHONE_REGEX).required(),
-        city: Joi.string().min(2).max(30).required(),
+        phone: Joi.string().regex(PHONE_REGEX),
+        city: Joi.string().min(2).max(30),
         avatarURL: Joi.string().uri().required(),
         avatarId: Joi.string(),
       })
