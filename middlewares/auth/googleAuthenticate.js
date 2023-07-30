@@ -4,12 +4,12 @@ const { Users } = require('../../models');
 const bcrypt = require('bcrypt');
 const uuid = require('uuid');
 
-const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } = process.env;
+const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, BASE_URL } = process.env;
 
 const googleParams = {
   clientID: GOOGLE_CLIENT_ID,
   clientSecret: GOOGLE_CLIENT_SECRET,
-  callbackURL: `http://localhost:3000/api/auth/google/callback`, //   callbackURL: `https://mypets-backend.onrender.com/api/auth/google/callback`,
+  callbackURL: `${BASE_URL}/auth/google/callback`,
   passReqToCallback: true,
 };
 
@@ -21,13 +21,20 @@ const googleCallback = async (
   done
 ) => {
   try {
-    const { email, displayName } = profile;
+    console.log(profile);
+    const { email, displayName, picture } = profile;
     const user = await Users.findOne({ email });
     if (user) {
       return done(null, user);
     }
     const password = await bcrypt.hash(uuid.v4(), 10);
-    const newUser = await Users.create({ email, password, name: displayName });
+    const avatarURL = picture;
+    const newUser = await Users.create({
+      email,
+      password,
+      name: displayName,
+      avatarURL,
+    });
     done(null, newUser);
   } catch (e) {
     done(e, false);
