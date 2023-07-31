@@ -3,12 +3,16 @@
   "info": {
     "version": "1.0",
     "title": "Swagger documentation for the Your Pet project",
-    "description": "Some description..."
+    "description": "This Swagger documentation provides a comprehensive guide for interacting with the backend services of our application in a user-friendly manner. It outlines all the available API endpoints and their functionalities, allowing developers and users to seamlessly interact with the backend.\n\nPurpose:\nThe main purpose of this Swagger documentation is to facilitate a smooth and efficient interaction between users and the backend of our application. By offering a clear and structured overview of the API endpoints, parameters, and responses, it enables developers to easily understand and integrate the backend services into their applications.\n\nFeatures:\n1. Detailed API Endpoint Information: Each API endpoint is documented with clear descriptions of its purpose, supported HTTP methods, required parameters, and expected responses.\n\n2. Parameter Definitions: Input parameters for each API endpoint are precisely defined, including data types, constraints, and optional/mandatory attributes.\n\n3. Response Schemas: The structure and data types of API responses are outlined through well-defined response schemas, ensuring predictability and ease of integration.\n\n4. Error Handling: The documentation elaborates on possible error scenarios, along with relevant error codes and messages, to assist developers in handling exceptional cases effectively.\n\n5. Testability and Postman Alternative: All API endpoints documented here are thoroughly tested and ready for use, eliminating the need to rely solely on Postman for backend testing.\n\nBy leveraging this Swagger documentation, developers can confidently utilize the backend services, expedite development, and build robust applications with seamless integration.\n\nNote: Please ensure to refer to the latest version of this Swagger documentation for up-to-date information on the backend API endpoints and functionalities."
   },
   "consumes": ["application/json", "multipart/form-data"],
   "produces": ["application/json"],
   "servers": [
-    { "url": "http://localhost:3000/api", "description": "Dev Server" }
+    { "url": "http://localhost:3000/api", "description": "Dev Server" },
+    {
+      "url": "https://mypets-backend.onrender.com/api",
+      "description": "Prd Server"
+    }
   ],
   "tags": [
     {
