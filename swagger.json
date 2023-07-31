@@ -604,52 +604,6 @@
             }
           }
         }
-      },
-      "patch": {
-        "tags": ["Notices"],
-        "summary": "Update favourites in a notice",
-        "security": [{ "Bearer": [] }],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "noticeId",
-            "required": true,
-            "type": "string",
-            "description": "A notice's id"
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Successful operation of add/remove a notice in favorite list",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UpdateNoticeByIdResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request (invalid request body)",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BadRequestError"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Headers of user requests are missing a token",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedError"
-                }
-              }
-            }
-          }
-        }
       }
     },
 
@@ -825,6 +779,54 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/GetNoticesListResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Headers of user requests are missing a token",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notices/favorites/{noticeId}": {
+      "patch": {
+        "tags": ["Notices"],
+        "summary": "Update favourites in a notice",
+        "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "noticeId",
+            "required": true,
+            "type": "string",
+            "description": "A notice's id"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation of add/remove a notice in favorite list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateNoticeByIdResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestError"
                 }
               }
             }
