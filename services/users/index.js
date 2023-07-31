@@ -1,6 +1,5 @@
-const { registerUserDataValidator, updateUserDataValidator } = require("./userValidators");
+const { updateUserDataValidator } = require("./userValidators");
 
 module.exports = {
-    registerUserDataValidator,
     updateUserDataValidator,
 }

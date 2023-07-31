@@ -15,7 +15,7 @@ authRouter.get(
 );
 
 authRouter.post('/register', authMdwr.checkRegisterData, authCtrl.register);
-authRouter.post('/login', authCtrl.login);
+authRouter.post('/login', authMdwr.checkLoginData, authCtrl.login);
 authRouter.post('/logout', authMdwr.protect, authCtrl.logout);
 
 module.exports = authRouter;

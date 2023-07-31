@@ -20,7 +20,7 @@ noticesRouter.get("/favorites", protect, noticesCtrl.listFavorites);
 noticesRouter.get("/self", protect, noticesCtrl.listMyNotices);
 
 noticesRouter.get("/:noticeId", noticesCtrl.getNoticeById);
-noticesRouter.patch("/:noticeId", protect, noticesCtrl.toggleNoticeToFavorite);
+noticesRouter.patch("/favorites/:noticeId", protect, noticesCtrl.toggleNoticeToFavorite);
 noticesRouter.delete("/:noticeId", protect, noticesCtrl.deleteNotice);
 
 module.exports = noticesRouter;

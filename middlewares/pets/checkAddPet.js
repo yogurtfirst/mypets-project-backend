@@ -1,5 +1,5 @@
 const { addPetValidator } = require("../../services/pets");
-const { catchAsync, AppError } = require("../../utils");
+const { catchAsync, AppError, checkDate } = require("../../utils");
 
 exports.checkAddPet = catchAsync(async (req, res, next) => {
   if (!req.body.photoURL) {
@@ -10,6 +10,7 @@ exports.checkAddPet = catchAsync(async (req, res, next) => {
   const { error, value } = addPetValidator(req.body);
 
   if (error) return next(new AppError(400, error.message));
+  if(!checkDate(value.birthday)) throw new AppError(400, "The birthday couldn't be in future")
 
   req.body = value;
 
