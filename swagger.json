@@ -393,6 +393,7 @@
               "type": "integer"
             },
             "description": "The page number for pagination",
+            "example": "1",
             "required": false
           },
           {
@@ -402,6 +403,7 @@
               "type": "integer"
             },
             "description": "The maximum number of items per page",
+            "example": "12",
             "required": false
           },
           {
@@ -411,6 +413,7 @@
               "type": "string"
             },
             "description": "Filter notices by category",
+            "example": "in-good-hands",
             "required": false
           },
           {
@@ -420,6 +423,7 @@
               "type": "string"
             },
             "description": "Search for notices by keyword",
+            "example": "Кіт",
             "required": false
           },
           {
@@ -429,6 +433,7 @@
               "type": "string"
             },
             "description": "The sex of the pet",
+            "example": "male",
             "required": false
           },
           {
@@ -542,7 +547,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/GetNoticesListResponse"
+                  "$ref": "#/components/schemas/GetNoticeByIdResponse"
                 }
               }
             }
@@ -620,6 +625,7 @@
               "type": "integer"
             },
             "description": "The page number for pagination",
+            "example": "1",
             "required": false
           },
           {
@@ -629,6 +635,7 @@
               "type": "integer"
             },
             "description": "The maximum number of items per page",
+            "example": "12",
             "required": false
           },
           {
@@ -638,6 +645,7 @@
               "type": "string"
             },
             "description": "Search for notices by keyword",
+            "example": "Кіт",
             "required": false
           },
           {
@@ -647,6 +655,7 @@
               "type": "string"
             },
             "description": "The sex of the pet",
+            "example": "male",
             "required": false
           },
           {
@@ -715,6 +724,7 @@
               "type": "integer"
             },
             "description": "The page number for pagination",
+            "example": "1",
             "required": false
           },
           {
@@ -724,6 +734,7 @@
               "type": "integer"
             },
             "description": "The maximum number of items per page",
+            "example": "12",
             "required": false
           },
           {
@@ -733,6 +744,7 @@
               "type": "string"
             },
             "description": "Search for notices by keyword",
+            "example": "Кіт",
             "required": false
           },
           {
@@ -742,6 +754,7 @@
               "type": "string"
             },
             "description": "The sex of the pet",
+            "example": "male",
             "required": false
           },
           {
@@ -1095,7 +1108,7 @@
           "phone": {
             "type": "string",
             "description": "User's phone number",
-            "example": "+1234567890"
+            "example": "+380000000000"
           },
           "city": {
             "type": "string",
@@ -1113,42 +1126,47 @@
       "UpdateUserResponse": {
         "type": "object",
         "properties": {
-          "_id": {
-            "type": "string",
-            "description": "User's Id",
-            "example": "64bc6fad76dd5e12883fb322"
-          },
-          "name": {
-            "type": "string",
-            "description": "Username",
-            "example": "Jhon"
-          },
-          "email": {
-            "type": "string",
-            "description": "User's email",
-            "format": "email",
-            "example": "user@example.com"
-          },
-          "phone": {
-            "type": "string",
-            "description": "User's phone number",
-            "example": "+1234567890"
-          },
-          "birthday": {
-            "type": "string",
-            "format": "date",
-            "description": "User's birthday in format YYYY-MM-DD",
-            "example": "01.01.1990"
-          },
-          "city": {
-            "type": "string",
-            "description": "User's city",
-            "example": "Lviv"
-          },
-          "avatarURL": {
-            "type": "string",
-            "description": "URL to user's avatar image",
-            "example": "https://res.cloudinary.com/doe8sk18b/image/upload/v1690028176/wwesmackd0wnq24wwap0e.jpg"
+          "user": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "description": "User's Id",
+                "example": "64bc6fad76dd5e12883fb322"
+              },
+              "name": {
+                "type": "string",
+                "description": "Username",
+                "example": "Jhon"
+              },
+              "email": {
+                "type": "string",
+                "description": "User's email",
+                "format": "email",
+                "example": "user@example.com"
+              },
+              "phone": {
+                "type": "string",
+                "description": "User's phone number",
+                "example": "+380000000000"
+              },
+              "birthday": {
+                "type": "string",
+                "format": "date",
+                "description": "User's birthday in format YYYY-MM-DD",
+                "example": "01.01.1990"
+              },
+              "city": {
+                "type": "string",
+                "description": "User's city",
+                "example": "Lviv"
+              },
+              "avatarURL": {
+                "type": "string",
+                "description": "URL to user's avatar image",
+                "example": "https://res.cloudinary.com/doe8sk18b/image/upload/v1690028176/wwesmackd0wnq24wwap0e.jpg"
+              }
+            }
           }
         }
       },
@@ -1263,7 +1281,7 @@
             "items": {
               "type": "object",
               "properties": {
-                "_id": {
+                "id": {
                   "type": "string",
                   "description": "Notice's ID",
                   "example": "02aa6jyt15cs5e00020qw24d"
@@ -1278,21 +1296,6 @@
                   "description": "Notice's title",
                   "example": "Cute dog looking for a home"
                 },
-                "name": {
-                  "type": "string",
-                  "description": "Pet's name",
-                  "example": "Rich"
-                },
-                "birthday": {
-                  "type": "string",
-                  "description": "Pet's birthday in format YYYY-MM-DD",
-                  "example": "2020-09-21"
-                },
-                "petType": {
-                  "type": "string",
-                  "description": "Pet's type",
-                  "example": "Pomeranian"
-                },
                 "sex": {
                   "type": "string",
                   "description": "Pet's sex",
@@ -1303,42 +1306,25 @@
                   "description": "Notice's location",
                   "example": "Lviv"
                 },
-                "price": {
-                  "type": "integer",
-                  "description": "Notice's price (Available only if type of notice equal sell)",
-                  "example": null
-                },
-                "comments": {
-                  "type": "string",
-                  "description": "Notice's comment",
-                  "example": "Rich would be the perfect addition to an active family that loves to play and go on walks. I bet he would love having a doggy playmate too!"
-                },
                 "photoURL": {
                   "type": "string",
                   "description": "Pet's photo in notice",
                   "example": "https://res.cloudinary.com/doe8sk18b/image/upload/v1690028176/wwesmackd0wnq24wwap0e.jpg"
                 },
                 "favorite": {
-                  "type": "array",
-                  "description": "List of users who have favorited this notification",
-                  "items": {
-                    "type": "string"
-                  },
-                  "example": [
-                    "64bc6fad76da5e12883fb322",
-                    "44bf6fnw76dd5c12811fb175",
-                    "61bf2ced00cd5c12121fb030"
-                  ]
+                  "type": "integer",
+                  "description": "Quantity of favorites",
+                  "example": "1"
                 },
-                "owner": {
-                  "type": "string",
-                  "format": "ObjectId",
-                  "description": "ID of the pet's owner (User)",
-                  "example": "603f6508e4a75c00223a446a"
+                "isFavorite": {
+                  "type": "boolean",
+                  "description": "Is the notices favorite for current user?",
+                  "example": false
                 },
-                "createdAt": {
+                "age": {
                   "type": "string",
-                  "example": "2023-07-23T19:21:53.954Z"
+                  "description": "Pet age",
+                  "example": "4 years"
                 }
               }
             }
@@ -1428,78 +1414,89 @@
       "GetNoticeByIdResponse": {
         "type": "object",
         "properties": {
-          "noticeType": {
-            "type": "string",
-            "description": "Notice's type",
-            "example": "sell"
-          },
-          "title": {
-            "type": "string",
-            "description": "Notice's title",
-            "example": "Cute dog looking for a home"
-          },
-          "_id": {
-            "type": "string",
-            "description": "Pet's id",
-            "example": "7c7904d4-28a5-11ee-be56-0242ac120002"
-          },
-          "name": {
-            "type": "string",
-            "description": "Pet's name",
-            "example": "Rich"
-          },
-          "birthday": {
-            "type": "string",
-            "description": "Pet's birthday in format YYYY-MM-DD",
-            "example": "21.09.2020"
-          },
-          "petType": {
-            "type": "string",
-            "description": "Pet's type",
-            "example": "Pomeranian"
-          },
-          "sex": {
-            "type": "string",
-            "description": "Pet's sex",
-            "example": "male"
-          },
-          "location": {
-            "type": "string",
-            "description": "Notice's location",
-            "example": "Lviv"
-          },
-          "price": {
-            "type": "integer",
-            "description": "Notice's price (Available only if type of notice equal sell)",
-            "example": 12500
-          },
-          "comments": {
-            "type": "string",
-            "description": "Notice's comment",
-            "example": "Rich would be the perfect addition to an active family that loves to play and go on walks. I bet he would love having a doggy playmate too!"
-          },
-          "photoURL": {
-            "type": "string",
-            "description": "Pet's photo in notice",
-            "example": "https://res.cloudinary.com/doe8sk18b/image/upload/v1690028176/wwesmackd0wnq24wwap0e.jpg"
-          },
-          "favorite": {
-            "type": "array",
-            "description": "List of users who have favorited this notification",
-            "items": {
-              "type": "string"
-            },
-            "example": []
-          },
-          "owner": {
-            "type": "string",
-            "format": "ObjectId",
-            "description": "ID of the pet's owner (User)",
-            "example": "603f6508e4a75c00223a446a"
-          },
-          "createdAt": {
-            "type": "string",
-            "example": "2023-07-23T19:21:53.954Z"
+          "notice": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "description": "Pet's id",
+                "example": "64c17828267f01bddcf3668b"
+              },
+              "noticeType": {
+                "type": "string",
+                "description": "Notice's type",
+                "example": "sell"
+              },
+              "title": {
+                "type": "string",
+                "description": "Notice's title",
+                "example": "Cute dog looking for a home"
+              },
+              "name": {
+                "type": "string",
+                "description": "Pet's name",
+                "example": "Rich"
+              },
+              "birthday": {
+                "type": "string",
+                "description": "Pet's birthday in format YYYY-MM-DD",
+                "example": "21.09.2020"
+              },
+              "petType": {
+                "type": "string",
+                "description": "Pet's type",
+                "example": "Pomeranian"
+              },
+              "sex": {
+                "type": "string",
+                "description": "Pet's sex",
+                "example": "male"
+              },
+              "location": {
+                "type": "string",
+                "description": "Notice's location",
+                "example": "Lviv"
+              },
+              "price": {
+                "type": "integer",
+                "description": "Notice's price (Available only if type of notice equal sell)",
+                "example": 12500
+              },
+              "comments": {
+                "type": "string",
+                "description": "Notice's comment",
+                "example": "Rich would be the perfect addition to an active family that loves to play and go on walks. I bet he would love having a doggy playmate too!"
+              },
+              "photoURL": {
+                "type": "string",
+                "description": "Pet's photo in notice",
+                "example": "https://res.cloudinary.com/doe8sk18b/image/upload/v1690028176/wwesmackd0wnq24wwap0e.jpg"
+              },
+              "favorite": {
+                "type": "integer",
+                "description": "Number of users who have favorited this notification",
+                "example": "1"
+              },
+              "isFavorite": {
+                "type": "boolean",
+                "description": "The favorite status for current user",
+                "example": false
+              },
+              "createdAt": {
+                "type": "string",
+                "example": "2023-07-23T19:21:53.954Z"
+              },
+              "ownerEmail": {
+                "type": "string",
+                "description": "Owner's email",
+                "example": "testswag@example.com"
+              },
+              "ownerPhone": {
+                "type": "string",
+                "description": "Owner's phone",
+                "example": "+380630000000"
+              }
+            }
           }
         }
       },
