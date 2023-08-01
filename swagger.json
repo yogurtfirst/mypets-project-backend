@@ -1154,7 +1154,7 @@
                 "type": "string",
                 "format": "date",
                 "description": "User's birthday in format YYYY-MM-DD",
-                "example": "01.01.1990"
+                "example": "1990-01-01"
               },
               "city": {
                 "type": "string",
