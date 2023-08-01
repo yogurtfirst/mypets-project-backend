@@ -4,7 +4,7 @@
 
 ### <div align=center>About the Backend:</div>
 
-#### "Your Pet - Backend" is the backend for the web service "Your Pet," created to help find new homes for adorable pets. This backend handles requests, user authentication, and interacts with the database to store and retrieve data about animals.
+#### "Your Pet - Backend" is the backend for the web service [Your Pet](https://nmarkhotsky.github.io/your-pet-project-front/), created to help find new homes for adorable pets. This backend handles requests, user authentication, and interacts with the database to store and retrieve data about animals.
 
 ---
 
