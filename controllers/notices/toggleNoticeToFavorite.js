@@ -38,7 +38,7 @@ exports.toggleNoticeToFavorite = catchAsync(async (req, res) => {
       comments: notice.comments,
       photoURL: notice.photoURL,
       favorite: notice.favorite.length,
-      isFavorite: false,
+      isFavorite: notice.favorite.includes(id),
       createdAt: notice.createdAt,
       ownerEmail: email,
       ownerPhone: phone,
