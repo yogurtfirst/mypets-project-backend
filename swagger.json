@@ -1321,6 +1321,11 @@
                   "description": "Is the notices favorite for current user?",
                   "example": false
                 },
+                "isOwn": {
+                  "type": "boolean",
+                  "description": "Is the notices created by current user?",
+                  "example": true
+                },
                 "age": {
                   "type": "string",
                   "description": "Pet age",
@@ -1481,6 +1486,11 @@
                 "type": "boolean",
                 "description": "The favorite status for current user",
                 "example": false
+              },
+              "isOwn": {
+                "type": "boolean",
+                "description": "Is the notices created by current user?",
+                "example": true
               },
               "createdAt": {
                 "type": "string",
