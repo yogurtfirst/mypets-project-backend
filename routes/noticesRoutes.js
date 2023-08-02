@@ -19,7 +19,7 @@ noticesRouter.post(
 noticesRouter.get("/favorites", protect, noticesCtrl.listFavorites);
 noticesRouter.get("/self", protect, noticesCtrl.listMyNotices);
 
-noticesRouter.get("/:noticeId", noticesCtrl.getNoticeById);
+noticesRouter.get("/:noticeId", noticesMdwr.protectListPets, noticesCtrl.getNoticeById);
 noticesRouter.patch("/favorites/:noticeId", protect, noticesCtrl.toggleNoticeToFavorite);
 noticesRouter.delete("/:noticeId", protect, noticesCtrl.deleteNotice);
 
