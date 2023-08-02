@@ -53,16 +53,13 @@ exports.searchNoticeService = async (userId, noticeType, query) => {
 
     notices = notices.map((notice) => {
         if (userId) {
+            const isOwned = notice.owner.equals(userId);
             const isInArray = notice.favorite.some(function (favorite) {
                 return favorite.equals(userId);
             });
-            if (isInArray) {
-                notice = { ...notice, isFavorite: true };
-            } else {
-                notice = { ...notice, isFavorite: false };
-            }
+           notice = { ...notice, isFavorite: isInArray, isOwn: isOwned }
         } else {
-            notice = { ...notice, isFavorite: false };
+            notice = { ...notice, isFavorite: false, isOwn: false };
         }
     
         const ageInMonths = dateFns.differenceInMonths(
@@ -91,6 +88,7 @@ exports.searchNoticeService = async (userId, noticeType, query) => {
             photoURL: notice.photoURL,
             favorite: notice.favorite,
             isFavorite: notice.isFavorite,
+            isOwn: notice.isOwn,
             age: notice.age,
             category: notice.category,
         };
