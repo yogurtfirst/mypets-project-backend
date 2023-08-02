@@ -30,6 +30,7 @@ exports.getNoticeById = catchAsync(async (req, res) => {
       photoURL: result.photoURL,
       favorite: result.favorite.length,
       isFavorite: result.favorite.includes(req.userId),
+      isOwn: result.owner.equals(req.userId),
       createdAt: result.createdAt,
       ownerEmail: email,
       ownerPhone: phone,
