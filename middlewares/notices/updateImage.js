@@ -9,7 +9,7 @@ const updateImage = async (req, res, next) => {
         const { path: tempUpload } = req.file
         
         const file = await Jimp.read(tempUpload)
-        await file.resize(250, 250).writeAsync(tempUpload)
+        await file.writeAsync(tempUpload)
 
         const { secure_url: photoURL, public_id: photoId } = await uploadCloudinary(tempUpload)
         
