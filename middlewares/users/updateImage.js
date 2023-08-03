@@ -10,7 +10,7 @@ const updateImage = async (req, res, next) => {
         const { avatarId: oldID } = req.user
         
         const file = await Jimp.read(tempUpload)
-        await file.resize(250, 250).writeAsync(tempUpload)
+        await file.writeAsync(tempUpload)
 
         if(oldID) await deleteOnCloudinary(oldID)
 
